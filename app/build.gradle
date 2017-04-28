@@ -20,15 +20,25 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    configurations.all {
+        resolutionStrategy.force 'com.google.code.findbugs:jsr305:1.3.9'
+    }
+    packagingOptions {
+        exclude 'META-INF/rxjava.properties'
+    }
 }
 
 def supportLib = '25.3.1'
 def dagger = '2.11-rc1'
-def mosby = '3.0.3'
+def mosby = '3.0.0'
 def rxJava = '2.0.1'
-def conductor = '2.1.1'
+def conductor = '2.1.2'
+def retrofit = '2.2.0'
+def rxBinding = '2.0.0'
 def mockito = '1.10.19'
 def junit = '4.12'
+def leakCanary = '1.5.1'
 
 kapt {
     generateStubs = true
@@ -38,6 +48,7 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
+        exclude group: 'com.google.code.findbugs'
     })
 
     // support libs
@@ -46,20 +57,40 @@ dependencies {
     compile "com.android.support:design:$supportLib"
     compile "com.android.support:cardview-v7:$supportLib"
 
-    // mosby
-//    compile "com.hannesdorfmann.mosby3:mvp-conductor:$mosby"
-//    compile "com.hannesdorfmann.mosby3:viewstate-conductor:$mosby"
-//    compile "com.hannesdorfmann.mosby3:mvi-conductor:$mosby"
-
-    compile "com.google.dagger:dagger:$dagger"
-    kapt "com.google.dagger:dagger-compiler:$dagger"
-    provided 'org.glassfish:javax.annotation:10.0-b28'
-
     // RxJava
     compile "io.reactivex.rxjava2:rxandroid:$rxJava"
     compile "io.reactivex.rxjava2:rxjava:$rxJava"
 
+    // mosby
+    compile "com.hannesdorfmann.mosby3:mvp-conductor:$mosby"
+    compile "com.hannesdorfmann.mosby3:viewstate-conductor:$mosby"
+    compile "com.hannesdorfmann.mosby3:mvi-conductor:$mosby"
+
+    // conductor
+    compile "com.bluelinelabs:conductor:$conductor"
+    compile "com.bluelinelabs:conductor-support:$conductor"
+    compile "com.bluelinelabs:conductor-rxlifecycle:$conductor"
+
+    // dagger
+    compile "com.google.dagger:dagger:$dagger"
+    kapt "com.google.dagger:dagger-compiler:$dagger"
+    provided 'org.glassfish:javax.annotation:10.0-b28'
+
+    // retrofit
+    compile "com.squareup.retrofit2:retrofit:$retrofit"
+    compile "com.squareup.retrofit2:converter-gson:$retrofit"
+    compile "com.squareup.retrofit2:adapter-rxjava2:$retrofit"
+
+    // rxbinding
+    compile "com.jakewharton.rxbinding2:rxbinding:$rxBinding"
+    compile "com.jakewharton.rxbinding2:rxbinding-support-v4:$rxBinding"
+    compile "com.jakewharton.rxbinding2:rxbinding-appcompat-v7:$rxBinding"
+
     compile 'com.android.support.constraint:constraint-layout:1.0.1'
+
+    debugCompile "com.squareup.leakcanary:leakcanary-android:$leakCanary"
+    releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanary"
+    testCompile "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanary"
 
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
 }

@@ -19,17 +19,19 @@ We use simplified version of clean architecture.
 - Presentation - MVP maybe parts of MVI on some complex forms
 
 Glue between these layers is RxJava
+
 Package by feature inside every main layer
 
 Used libraries
 -----
 
-RxJava
-Dagger
-ButterKnife
-Mosby
-Conductor
-TODO
+- RxJava
+- Dagger
+- ButterKnife
+- RxBinding
+- Retrofit
+- Mosby
+- Conductor
 
 Inspiration
 -----
@@ -45,9 +47,15 @@ TODO
 TODO List
 -----
 
-- [x] First
-- [ ] Second
-- [ ] Third
+- [x] Setup github project
+- [x] Add all essential dependencies and make sure everything compiles
+- [x] Create Main activity as an conductor host
+- [ ] Create first example screen with view(conductor), presenter
+- [ ] Setup dagger for everything
+- [ ] Translate everything to kotlin
+- [ ] Setup leakCanary
+- [ ] Setup retrofit with first api call
+- [ ] Architect use cases and domain logic
 
 
 License
