@@ -1,7 +1,7 @@
 Android Skeleton
 ========
 
-TODO basic about
+Simple template app based on [jsonplaceholder][jsonplaceholder] example REST API.
 
 
 Goals
@@ -12,18 +12,24 @@ TODO explain our goals
 Architecture
 -----
 
-TODO explain our architecture
+We use simplified version of clean architecture.
+
+- Data - not sure yet how to handle this layer in this template, this can be different from app to app so it may be appropriate to use something simple like `SharedPreferences` or we can create more flavours(branches?) of this layer
+- Domain - Use cases and stuff
+- Presentation - MVP maybe parts of MVI on some complex forms
+
+Glue between these layers is RxJava
+Package by feature inside every main layer
 
 Used libraries
 -----
 
-TODO list main used 3rd party libs
-
-TODO List
------
-
-TODO TODO List :D
-
+RxJava
+Dagger
+ButterKnife
+Mosby
+Conductor
+TODO
 
 Inspiration
 -----
@@ -35,6 +41,14 @@ How to use this
 -----
 
 TODO
+
+TODO List
+-----
+
+- [x] First
+- [ ] Second
+- [ ] Third
+
 
 License
 -------
@@ -53,3 +67,5 @@ License
     See the License for the specific language governing permissions and
     limitations under the License.
 
+
+[jsonplaceholder]: https://jsonplaceholder.typicode.com/

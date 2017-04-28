@@ -62,6 +62,7 @@ obj/
 /out/
 
 # User-specific configurations
+.idea/markdown-navigator
 .idea/libraries/
 .idea/workspace.xml
 .idea/tasks.xml
@@ -127,7 +128,4 @@ crashlytics-build.properties
 fabric.properties
 
 # End of https://www.gitignore.io/api/androidstudio
-.idea/gradle.xml
-.idea/misc.xml
-.idea/modules.xml
-.idea/qaplug_profiles.xml
+
