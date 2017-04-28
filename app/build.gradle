@@ -1,0 +1,65 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'me.tatarka.retrolambda'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
+    defaultConfig {
+        applicationId "cz.inventi.inventiskeleton"
+        minSdkVersion 19
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+def supportLib = '25.3.1'
+def dagger = '2.11-rc1'
+def mosby = '3.0.3'
+def rxJava = '2.0.1'
+def conductor = '2.1.1'
+def mockito = '1.10.19'
+def junit = '4.12'
+
+kapt {
+    generateStubs = true
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+
+    // support libs
+    compile "com.android.support:appcompat-v7:$supportLib"
+    compile "com.android.support:recyclerview-v7:$supportLib"
+    compile "com.android.support:design:$supportLib"
+    compile "com.android.support:cardview-v7:$supportLib"
+
+    // mosby
+//    compile "com.hannesdorfmann.mosby3:mvp-conductor:$mosby"
+//    compile "com.hannesdorfmann.mosby3:viewstate-conductor:$mosby"
+//    compile "com.hannesdorfmann.mosby3:mvi-conductor:$mosby"
+
+    compile "com.google.dagger:dagger:$dagger"
+    kapt "com.google.dagger:dagger-compiler:$dagger"
+    provided 'org.glassfish:javax.annotation:10.0-b28'
+
+    // RxJava
+    compile "io.reactivex.rxjava2:rxandroid:$rxJava"
+    compile "io.reactivex.rxjava2:rxjava:$rxJava"
+
+    compile 'com.android.support.constraint:constraint-layout:1.0.1'
+
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+}

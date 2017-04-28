@@ -63,6 +63,8 @@ obj/
 
 # User-specific configurations
 .idea/markdown-navigator
+.idea/markdown-navigator.xml
+.idea
 .idea/libraries/
 .idea/workspace.xml
 .idea/tasks.xml
