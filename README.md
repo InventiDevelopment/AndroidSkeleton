@@ -49,7 +49,7 @@ TODO List
 
 - [x] Setup github project
 - [x] Add all essential dependencies and make sure everything compiles
-- [x] Create Main activity as an conductor host
+- [ ] Create Main activity as an conductor host
 - [ ] Create first example screen with view(conductor), presenter
 - [ ] Setup dagger for everything
 - [ ] Translate everything to kotlin
