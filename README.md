@@ -25,13 +25,14 @@ Package by feature inside every main layer
 Used libraries
 -----
 
-- RxJava
-- Dagger
-- ButterKnife
-- RxBinding
-- Retrofit
-- Mosby
-- Conductor
+- [RxJava][rxjava]
+- [RxAndroid][rxandroid]
+- [Dagger2][dagger]
+- [ButterKnife][butterknife]
+- [RxBinding][rxbinding]
+- [Retrofit][retrofit]
+- [Mosby][mosby]
+- [Conductor][conductor]
 
 Inspiration
 -----
@@ -77,3 +78,11 @@ License
 
 
 [jsonplaceholder]: https://jsonplaceholder.typicode.com/
+[rxjava] https://github.com/ReactiveX/RxJava
+[rxandroid] https://github.com/ReactiveX/RxAndroid
+[dagger] https://github.com/google/dagger
+[butterknife] https://github.com/JakeWharton/butterknife
+[rxbinding] https://github.com/JakeWharton/RxBinding
+[retrofit] https://github.com/square/retrofit
+[mosby] https://github.com/sockeqwe/mosby
+[conductor] https://github.com/bluelinelabs/Conductor
