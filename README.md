@@ -34,11 +34,19 @@ Used libraries
 - [Mosby][mosby]
 - [Conductor][conductor]
 
-Inspiration
+Inspiration & Acknowledgements
 -----
 
-TODO links to other repos
+Articles
+- https://fernandocejas.com/2014/09/03/architecting-android-the-clean-way/
+- https://fernandocejas.com/2015/07/18/architecting-android-the-evolution/
+- Everything [Jake Wharton][jakewharton] ever done :)
+- TODO
 
+Repos
+- https://github.com/googlesamples/android-architecture
+- https://github.com/android10/Android-CleanArchitecture
+- https://github.com/sockeqwe/mosby-conductor/tree/master/app
 
 How to use this
 -----
@@ -78,6 +86,7 @@ License
 
 
 [jsonplaceholder]: https://jsonplaceholder.typicode.com/
+[jakewharton]: https://github.com/JakeWharton
 [rxjava]: https://github.com/ReactiveX/RxJava
 [rxandroid]: https://github.com/ReactiveX/RxAndroid
 [dagger]: https://github.com/google/dagger
