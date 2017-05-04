@@ -78,11 +78,11 @@ License
 
 
 [jsonplaceholder]: https://jsonplaceholder.typicode.com/
-[rxjava] https://github.com/ReactiveX/RxJava
-[rxandroid] https://github.com/ReactiveX/RxAndroid
-[dagger] https://github.com/google/dagger
-[butterknife] https://github.com/JakeWharton/butterknife
-[rxbinding] https://github.com/JakeWharton/RxBinding
-[retrofit] https://github.com/square/retrofit
-[mosby] https://github.com/sockeqwe/mosby
-[conductor] https://github.com/bluelinelabs/Conductor
+[rxjava]: https://github.com/ReactiveX/RxJava
+[rxandroid]: https://github.com/ReactiveX/RxAndroid
+[dagger]: https://github.com/google/dagger
+[butterknife]: https://github.com/JakeWharton/butterknife
+[rxbinding]: https://github.com/JakeWharton/RxBinding
+[retrofit]: https://github.com/square/retrofit
+[mosby]: https://github.com/sockeqwe/mosby
+[conductor]: https://github.com/bluelinelabs/Conductor
