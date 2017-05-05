@@ -91,7 +91,7 @@ dependencies {
     compile "com.jakewharton.rxbinding2:rxbinding-support-v4:$rxBinding"
     compile "com.jakewharton.rxbinding2:rxbinding-appcompat-v7:$rxBinding"
 
-    compile 'com.android.support.constraint:constraint-layout:1.0.1'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
 
     debugCompile "com.squareup.leakcanary:leakcanary-android:$leakCanary"
     releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanary"
