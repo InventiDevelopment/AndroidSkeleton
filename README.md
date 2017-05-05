@@ -58,10 +58,10 @@ TODO List
 
 - [x] Setup github project
 - [x] Add all essential dependencies and make sure everything compiles
-- [ ] Create Main activity as an conductor host
-- [ ] Create first example screen with view(conductor), presenter
+- [x] Create Main activity as an conductor host
+- [x] Create first example screen with view(conductor), presenter
+- [x] Translate everything to kotlin
 - [ ] Setup dagger for everything
-- [ ] Translate everything to kotlin
 - [ ] Setup leakCanary
 - [ ] Setup retrofit with first api call
 - [ ] Architect use cases and domain logic
