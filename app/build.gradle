@@ -36,6 +36,7 @@ def rxJava = '2.0.1'
 def conductor = '2.1.2'
 def retrofit = '2.2.0'
 def rxBinding = '2.0.0'
+def butterKnife = '8.5.1'
 def mockito = '1.10.19'
 def junit = '4.12'
 def leakCanary = '1.5.1'
@@ -80,6 +81,10 @@ dependencies {
     compile "com.squareup.retrofit2:retrofit:$retrofit"
     compile "com.squareup.retrofit2:converter-gson:$retrofit"
     compile "com.squareup.retrofit2:adapter-rxjava2:$retrofit"
+
+    // butterKnife
+    compile "com.jakewharton:butterknife:$butterKnife"
+    kapt "com.jakewharton:butterknife-compiler:$butterKnife"
 
     // rxbinding
     compile "com.jakewharton.rxbinding2:rxbinding:$rxBinding"
