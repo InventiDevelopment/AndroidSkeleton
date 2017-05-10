@@ -41,6 +41,7 @@ Articles
 - https://fernandocejas.com/2014/09/03/architecting-android-the-clean-way/
 - https://fernandocejas.com/2015/07/18/architecting-android-the-evolution/
 - Everything [Jake Wharton][jakewharton] ever done :)
+- https://hackernoon.com/configuring-android-project-little-things-that-matter-d6a9d34c1ce0 (whole series)
 - TODO
 
 Repos

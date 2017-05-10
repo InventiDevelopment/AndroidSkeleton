@@ -3,6 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'me.tatarka.retrolambda'
 apply from: "$project.rootDir/tools/script-git-version.gradle"
+apply from: "$project.rootDir/tools/script-lint.gradle"
 
 android {
     compileSdkVersion 25
@@ -15,31 +16,31 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
-//    signingConfigs {
-//        debug {
-//            keyAlias 'androiddebugkey'
-//            keyPassword 'android'
-//            storePassword 'android'
-//            storeFile file('../keystore/debug.keystore')
-//        }
-//        release {
-//            keyAlias 'androidreleasekey'
-//            keyPassword 'android'
-//            storePassword 'android'
-//            storeFile file('../keystore/release.keystore')
-//        }
-//    }
+    signingConfigs {
+        debug {
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+            storePassword 'android'
+            storeFile file('../keystore/debug.keystore')
+        }
+        release {
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+            storePassword 'android'
+            storeFile file('../keystore/release.keystore')
+        }
+    }
 
     productFlavors {
         dev {
-//            signingConfig signingConfigs.debug
+            signingConfig signingConfigs.debug
             versionCode gitVersionCodeTime
             versionName gitVersionName
             applicationIdSuffix '.dev'
         }
 
         prod {
-//            signingConfig signingConfigs.release
+            signingConfig signingConfigs.release
             versionCode gitVersionCode
             versionName gitVersionName
         }
