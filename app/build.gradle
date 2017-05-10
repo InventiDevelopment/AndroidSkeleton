@@ -2,18 +2,49 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'me.tatarka.retrolambda'
+apply from: "$project.rootDir/tools/script-git-version.gradle"
 
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
+
     defaultConfig {
         applicationId "cz.inventi.inventiskeleton"
         minSdkVersion 19
         targetSdkVersion 25
-        versionCode 1
-        versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
+//    signingConfigs {
+//        debug {
+//            keyAlias 'androiddebugkey'
+//            keyPassword 'android'
+//            storePassword 'android'
+//            storeFile file('../keystore/debug.keystore')
+//        }
+//        release {
+//            keyAlias 'androidreleasekey'
+//            keyPassword 'android'
+//            storePassword 'android'
+//            storeFile file('../keystore/release.keystore')
+//        }
+//    }
+
+    productFlavors {
+        dev {
+//            signingConfig signingConfigs.debug
+            versionCode gitVersionCodeTime
+            versionName gitVersionName
+            applicationIdSuffix '.dev'
+        }
+
+        prod {
+//            signingConfig signingConfigs.release
+            versionCode gitVersionCode
+            versionName gitVersionName
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
