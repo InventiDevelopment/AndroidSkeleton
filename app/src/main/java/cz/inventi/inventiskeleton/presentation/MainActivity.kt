@@ -11,11 +11,11 @@ import com.bluelinelabs.conductor.RouterTransaction
 import butterknife.BindView
 import butterknife.ButterKnife
 import cz.inventi.inventiskeleton.R
-import cz.inventi.inventiskeleton.presentation.list.ListController
+import cz.inventi.inventiskeleton.presentation.post.list.PostListController
 
 open class MainActivity : AppCompatActivity() {
 
-    private var router: Router? = null
+    private lateinit var router: Router
 
     @JvmField @BindView(R.id.controller_container)
     internal var container: ViewGroup? = null
@@ -27,13 +27,13 @@ open class MainActivity : AppCompatActivity() {
         ButterKnife.bind(this)
 
         router = Conductor.attachRouter(this, container!!, savedInstanceState)
-        if (!router!!.hasRootController()) {
-            router!!.setRoot(RouterTransaction.with(ListController()))
+        if (!router.hasRootController()) {
+            router.setRoot(RouterTransaction.with(PostListController()))
         }
     }
 
     override fun onBackPressed() {
-        if (!router!!.handleBack()) {
+        if (!router.handleBack()) {
             super.onBackPressed()
         }
     }

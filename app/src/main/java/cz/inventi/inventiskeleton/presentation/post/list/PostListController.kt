@@ -1,4 +1,4 @@
-package cz.inventi.inventiskeleton.presentation.list
+package cz.inventi.inventiskeleton.presentation.post.list
 
 import android.view.LayoutInflater
 import android.view.View
@@ -15,7 +15,7 @@ import cz.inventi.inventiskeleton.R
  * Created by semanticer on 05.05.2017.
  */
 
-class ListController : MvpController<ListView, ListPresenter>(), ListView {
+class PostListController : MvpController<PostListView, PostListPresenter>(), PostListView {
 
     @JvmField @BindView(R.id.test_text)
     internal var testText: TextView? = null
@@ -26,11 +26,15 @@ class ListController : MvpController<ListView, ListPresenter>(), ListView {
         return view
     }
 
-    override fun createPresenter(): ListPresenter {
-        return ListPresenter()
+    override fun createPresenter(): PostListPresenter {
+        return PostListPresenter()
     }
 
     override fun showText(text: String) {
         testText!!.text = text
+    }
+
+    override fun showError(errorText: String) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }
