@@ -10,24 +10,35 @@ import com.hannesdorfmann.mosby3.mvp.conductor.MvpController
 import butterknife.BindView
 import butterknife.ButterKnife
 import cz.inventi.inventiskeleton.R
+import cz.inventi.inventiskeleton.di.conductorlib.ConductorInjection
+import cz.inventi.inventiskeleton.presentation.common.BaseController
+import javax.inject.Inject
+import javax.inject.Named
+
+
 
 /**
  * Created by semanticer on 05.05.2017.
  */
 
-class PostListController : MvpController<PostListView, PostListPresenter>(), PostListView {
+class PostListController : BaseController<PostListView, PostListPresenter>(), PostListView {
 
     @JvmField @BindView(R.id.test_text)
     internal var testText: TextView? = null
 
+    @Inject lateinit var postListPresenter: PostListPresenter
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View {
-        val view = inflater.inflate(R.layout.controller_list, container, false)
-        ButterKnife.bind(this, view)
-        return view
+        ConductorInjection.inject(this)
+        return super.onCreateView(inflater, container)
+    }
+
+    override fun inflateView(inflater: LayoutInflater, container: ViewGroup): View {
+        return inflater.inflate(R.layout.controller_list, container, false)
     }
 
     override fun createPresenter(): PostListPresenter {
-        return PostListPresenter()
+        return postListPresenter
     }
 
     override fun showText(text: String) {

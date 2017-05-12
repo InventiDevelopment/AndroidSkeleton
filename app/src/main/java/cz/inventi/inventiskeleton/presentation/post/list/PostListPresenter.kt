@@ -4,20 +4,15 @@ import com.hannesdorfmann.mosby3.mvp.MvpPresenter
 import cz.inventi.inventiskeleton.data.model.Post
 import cz.inventi.inventiskeleton.domain.post.GetPostListUseCase
 import cz.inventi.inventiskeleton.presentation.common.PresentationObserver
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
 /**
  * Created by semanticer on 05.05.2017.
  */
 
-class PostListPresenter : MvpPresenter<PostListView> {
-
-    val useCase: GetPostListUseCase = GetPostListUseCase( { Schedulers.newThread() } , { AndroidSchedulers.mainThread()} )
+class PostListPresenter @Inject constructor(val useCase: GetPostListUseCase) : MvpPresenter<PostListView> {
 
     override fun attachView(view: PostListView) {
-        view.showText("List controler text")
-
         useCase.execute(PostListObserver(view), Unit)
     }
 

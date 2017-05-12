@@ -1,6 +1,9 @@
 package cz.inventi.inventiskeleton.di;
 
 import cz.inventi.inventiskeleton.App;
+import cz.inventi.inventiskeleton.di.conductorlib.ConductorInjectionModule;
+import cz.inventi.inventiskeleton.presentation.post.list.PostListModule;
+import cz.inventi.inventiskeleton.presentation.post.list.PostListPresenter;
 import dagger.Component;
 import dagger.android.AndroidInjector;
 import dagger.android.support.AndroidSupportInjectionModule;
@@ -14,6 +17,8 @@ import dagger.android.support.AndroidSupportInjectionModule;
                 ApplicationModule.class,
                 AndroidBindingModule.class,
                 AndroidSupportInjectionModule.class,
+                ConductorInjectionModule.class,
+                PostListModule.class
         }
 )
 @ApplicationScope
@@ -22,4 +27,5 @@ public interface ApplicationComponent extends AndroidInjector<App> {
     @Component.Builder
     abstract class Builder extends AndroidInjector.Builder<App> {
     }
+
 }
