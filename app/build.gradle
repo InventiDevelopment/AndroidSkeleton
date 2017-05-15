@@ -3,18 +3,50 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'me.tatarka.retrolambda'
+apply from: "$project.rootDir/tools/script-git-version.gradle"
+apply from: "$project.rootDir/tools/script-lint.gradle"
 
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
+
     defaultConfig {
         applicationId "cz.inventi.inventiskeleton"
         minSdkVersion 19
         targetSdkVersion 25
-        versionCode 1
-        versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
+    signingConfigs {
+        debug {
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+            storePassword 'android'
+            storeFile file('../keystore/debug.keystore')
+        }
+        release {
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+            storePassword 'android'
+            storeFile file('../keystore/release.keystore')
+        }
+    }
+
+    productFlavors {
+        dev {
+            signingConfig signingConfigs.debug
+            versionCode gitVersionCodeTime
+            versionName gitVersionName
+            applicationIdSuffix '.dev'
+        }
+
+        prod {
+            signingConfig signingConfigs.release
+            versionCode gitVersionCode
+            versionName gitVersionName
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -28,10 +60,15 @@ android {
     packagingOptions {
         exclude 'META-INF/rxjava.properties'
     }
+
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
+    }
 }
 
 def supportLib = '25.3.1'
-def dagger = '2.11-rc1'
+def dagger = '2.11-rc2'
 def mosby = '3.0.0'
 def rxJava = '2.0.1'
 def conductor = '2.1.2'
@@ -71,11 +108,13 @@ dependencies {
     // conductor
     compile "com.bluelinelabs:conductor:$conductor"
     compile "com.bluelinelabs:conductor-support:$conductor"
-    compile "com.bluelinelabs:conductor-rxlifecycle:$conductor"
+    compile "com.bluelinelabs:conductor-rxlifecycle2:$conductor"
 
     // dagger
     compile "com.google.dagger:dagger:$dagger"
+    compile "com.google.dagger:dagger-android-support:$dagger"
     kapt "com.google.dagger:dagger-compiler:$dagger"
+    kapt "com.google.dagger:dagger-android-processor:$dagger"
     provided 'org.glassfish:javax.annotation:10.0-b28'
 
     // retrofit
