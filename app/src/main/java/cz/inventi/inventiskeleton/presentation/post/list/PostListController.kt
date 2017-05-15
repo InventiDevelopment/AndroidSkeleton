@@ -4,16 +4,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-
-import com.hannesdorfmann.mosby3.mvp.conductor.MvpController
-
-import butterknife.BindView
-import butterknife.ButterKnife
 import cz.inventi.inventiskeleton.R
 import cz.inventi.inventiskeleton.di.conductorlib.ConductorInjection
 import cz.inventi.inventiskeleton.presentation.common.BaseController
+import cz.inventi.inventiskeleton.presentation.common.bindView
 import javax.inject.Inject
-import javax.inject.Named
 
 
 
@@ -23,8 +18,7 @@ import javax.inject.Named
 
 class PostListController : BaseController<PostListView, PostListPresenter>(), PostListView {
 
-    @JvmField @BindView(R.id.test_text)
-    internal var testText: TextView? = null
+    internal val testText: TextView by bindView(R.id.test_text)
 
     @Inject lateinit var postListPresenter: PostListPresenter
 
@@ -42,7 +36,7 @@ class PostListController : BaseController<PostListView, PostListPresenter>(), Po
     }
 
     override fun showText(text: String) {
-        testText!!.text = text
+        testText.text = text
     }
 
     override fun showError(errorText: String) {
