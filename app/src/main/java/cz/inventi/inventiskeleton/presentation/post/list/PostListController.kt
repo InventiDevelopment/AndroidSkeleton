@@ -39,7 +39,4 @@ class PostListController : BaseController<PostListView, PostListPresenter>(), Po
         testText.text = text
     }
 
-    override fun showError(errorText: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
 }

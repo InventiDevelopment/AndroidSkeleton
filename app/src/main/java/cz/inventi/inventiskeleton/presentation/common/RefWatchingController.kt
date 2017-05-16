@@ -13,7 +13,7 @@ import cz.inventi.inventiskeleton.App
  * Created by tomas.valenta on 5/11/2017.
  */
 
-abstract class RefWatchingController<V : MvpView, P : MvpPresenter<V>> : ButterKnifeController<V, P> {
+abstract class RefWatchingController<V : MvpView, P : MvpPresenter<V>> : ViewBindingController<V, P> {
 
     protected constructor() {}
 
