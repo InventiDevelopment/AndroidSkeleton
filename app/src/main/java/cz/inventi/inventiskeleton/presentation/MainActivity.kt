@@ -9,9 +9,6 @@ import android.widget.Toast
 import com.bluelinelabs.conductor.Conductor
 import com.bluelinelabs.conductor.Router
 import com.bluelinelabs.conductor.RouterTransaction
-
-import butterknife.BindView
-import butterknife.ButterKnife
 import cz.inventi.inventiskeleton.R
 import cz.inventi.inventiskeleton.domain.common.ActionBarProvider
 import cz.inventi.inventiskeleton.presentation.post.list.PostListController
@@ -33,7 +30,6 @@ open class MainActivity : AppCompatActivity(), ActionBarProvider {
         AndroidInjection.inject(this)
 
         setContentView(R.layout.activity_main)
-        ButterKnife.bind(this)
 
         if (sp.getBoolean("neco", true)) {
             Toast.makeText(this, "TADAAAAA", Toast.LENGTH_LONG).show()
