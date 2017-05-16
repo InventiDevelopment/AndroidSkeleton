@@ -23,7 +23,7 @@ abstract class ViewBindingController<V : MvpView, P : MvpPresenter<V>> : MvpCont
         return view
     }
 
-    protected fun onViewBind(view: View) {}
+    protected open fun onViewBind(view: View) {}
 
     override fun onDestroyView(view: View) {
         ViewBinder.tearDown(this)

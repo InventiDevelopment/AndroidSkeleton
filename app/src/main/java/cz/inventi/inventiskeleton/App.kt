@@ -2,6 +2,7 @@ package cz.inventi.inventiskeleton
 
 
 import com.bluelinelabs.conductor.Controller
+import com.facebook.stetho.Stetho
 import com.squareup.leakcanary.LeakCanary
 import com.squareup.leakcanary.RefWatcher
 
@@ -29,6 +30,7 @@ class App : DaggerApplication(), HasControllerInjector {
     override fun onCreate() {
         super.onCreate()
         refWatcher = LeakCanary.install(this)
+        Stetho.initializeWithDefaults(this)
     }
 
     override fun controllerInjector(): DispatchingAndroidInjector<Controller> {

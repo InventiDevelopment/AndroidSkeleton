@@ -1,5 +1,6 @@
 package cz.inventi.inventiskeleton.presentation.post.list
 
+import com.hannesdorfmann.mosby3.mvp.MvpNullObjectBasePresenter
 import com.hannesdorfmann.mosby3.mvp.MvpPresenter
 import cz.inventi.inventiskeleton.data.model.Post
 import cz.inventi.inventiskeleton.domain.post.GetPostListUseCase
@@ -10,9 +11,10 @@ import javax.inject.Inject
  * Created by semanticer on 05.05.2017.
  */
 
-class PostListPresenter @Inject constructor(val useCase: GetPostListUseCase) : MvpPresenter<PostListView> {
+class PostListPresenter @Inject constructor(val useCase: GetPostListUseCase) : MvpNullObjectBasePresenter<PostListView>() {
 
     override fun attachView(view: PostListView) {
+        super.attachView(view)
         useCase.execute(PostListObserver(view), Unit)
     }
 
@@ -22,7 +24,11 @@ class PostListPresenter @Inject constructor(val useCase: GetPostListUseCase) : M
 
     class PostListObserver constructor(view: PostListView): PresentationObserver<List<Post>, PostListView>(view) {
         override fun onNext(list: List<Post>) {
-            onView { it.showText(list[0].title) }
+            onView { it.showText(list[0].title + " Total number: " + list.size) }
         }
+    }
+
+    fun reloadList() {
+        useCase.execute(PostListObserver(view), Unit)
     }
 }

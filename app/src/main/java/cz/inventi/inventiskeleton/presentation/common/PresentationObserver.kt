@@ -8,20 +8,20 @@ import java.lang.ref.WeakReference
  * Created by tomas.valenta on 5/11/2017.
  */
 
-abstract class PresentationObserver<T, V: MvpView> constructor(view: V) : DisposableObserver<T>()  {
+abstract class PresentationObserver<T, V: BaseView> constructor(view: V) : DisposableObserver<T>()  {
 
     private val viewRef: WeakReference<V> = WeakReference(view)
 
-    protected fun onView(func: (V) -> Unit) {
-        viewRef.get()?.let { func(it) }
-    }
-
     override fun onError(e: Throwable?) {
-        // TODO default error handling like UI toast or something
+        onView { it.showError(e!!.message!!) }
     }
 
     override fun onComplete() {
         // Blank
+    }
+
+    protected fun onView(func: (V) -> Unit) {
+        viewRef.get()?.let { func(it) }
     }
 
 }

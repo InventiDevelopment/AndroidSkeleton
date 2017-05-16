@@ -38,12 +38,16 @@ android {
             versionCode gitVersionCodeTime
             versionName gitVersionName
             applicationIdSuffix '.dev'
+
+            buildConfigField "String", "BASE_API_URL", "\"https://jsonplaceholder.typicode.com/\""
         }
 
         prod {
             signingConfig signingConfigs.release
             versionCode gitVersionCode
             versionName gitVersionName
+
+            buildConfigField "String", "BASE_API_URL", "\"https://jsonplaceholder.typicode.com/\""
         }
     }
 
@@ -72,12 +76,14 @@ def dagger = '2.11-rc2'
 def mosby = '3.0.0'
 def rxJava = '2.0.1'
 def conductor = '2.1.2'
-def retrofit = '2.2.0'
+def retrofit = '2.3.0'
+def okHttp = '3.8.0'
 def rxBinding = '2.0.0'
 //def butterKnife = '8.5.1'
 def mockito = '1.10.19'
 def junit = '4.12'
 def leakCanary = '1.5.1'
+def stetho = '1.5.0'
 
 kapt {
     generateStubs = true
@@ -104,6 +110,7 @@ dependencies {
     compile "com.hannesdorfmann.mosby3:mvp-conductor:$mosby"
     compile "com.hannesdorfmann.mosby3:viewstate-conductor:$mosby"
     compile "com.hannesdorfmann.mosby3:mvi-conductor:$mosby"
+    compile "com.hannesdorfmann.mosby3:mvp-nullobject-presenter:$mosby"
 
     // conductor
     compile "com.bluelinelabs:conductor:$conductor"
@@ -121,6 +128,13 @@ dependencies {
     compile "com.squareup.retrofit2:retrofit:$retrofit"
     compile "com.squareup.retrofit2:converter-gson:$retrofit"
     compile "com.squareup.retrofit2:adapter-rxjava2:$retrofit"
+
+    // okHttp
+    compile "com.squareup.okhttp3:okhttp:$okHttp"
+    compile "com.squareup.okhttp3:logging-interceptor:$okHttp"
+
+    compile "com.facebook.stetho:stetho:$stetho"
+    compile "com.facebook.stetho:stetho-okhttp3:$stetho"
 
     // butterKnife
 //    compile "com.jakewharton:butterknife:$butterKnife"
