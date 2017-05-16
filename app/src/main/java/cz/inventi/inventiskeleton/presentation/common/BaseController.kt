@@ -1,8 +1,10 @@
 package cz.inventi.inventiskeleton.presentation.common
 
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v7.app.ActionBar
 import android.view.View
+import android.view.ViewGroup
 
 import com.bluelinelabs.conductor.Controller
 import com.hannesdorfmann.mosby3.mvp.MvpPresenter
@@ -14,7 +16,7 @@ import cz.inventi.inventiskeleton.domain.common.ActionBarProvider
  * Created by tomas.valenta on 5/11/2017.
  */
 
-abstract class BaseController<V : MvpView, P : MvpPresenter<V>> : RefWatchingController<V, P> {
+abstract class BaseController<V : BaseView, P : MvpPresenter<V>> : RefWatchingController<V, P>, BaseView {
 
     protected constructor() {}
 
@@ -46,6 +48,12 @@ abstract class BaseController<V : MvpView, P : MvpPresenter<V>> : RefWatchingCon
         val actionBar = actionBar
         if (title != null && actionBar != null) {
             actionBar.title = title
+        }
+    }
+
+    override fun showError(errorText: String) {
+        (activity?.findViewById(android.R.id.content) as ViewGroup).getChildAt(0)?.let {
+            Snackbar.make(it, errorText, Snackbar.LENGTH_LONG).show()
         }
     }
 
