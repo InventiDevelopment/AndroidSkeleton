@@ -2,6 +2,7 @@
 
 package cz.inventi.inventiskeleton.presentation.common
 
+import android.support.v7.widget.RecyclerView
 import android.view.View
 import com.bluelinelabs.conductor.Controller
 import java.util.*
@@ -30,7 +31,13 @@ public fun <V : View> Controller.bindViews(vararg ids: Int)
 public fun <V : View> Controller.bindOptionalViews(vararg ids: Int)
         : ReadOnlyProperty<Controller, List<V>> = optional(ids, viewFinder)
 
+public fun <V : View> RecyclerView.ViewHolder.bindView(id: Int)
+        : ReadOnlyProperty<RecyclerView.ViewHolder, V> = required(id, viewFinder)
+
 private val Controller.viewFinder: Controller.(Int) -> View?
+    get() = { LiveBindings.targetView(this)?.findViewById(it) }
+
+private val RecyclerView.ViewHolder.viewFinder: RecyclerView.ViewHolder.(Int) -> View?
     get() = { LiveBindings.targetView(this)?.findViewById(it) }
 
 private fun viewNotFound(id:Int, desc: KProperty<*>): Nothing =

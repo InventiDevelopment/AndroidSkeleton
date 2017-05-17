@@ -1,7 +1,6 @@
 package cz.inventi.inventiskeleton.presentation.post.list
 
 import com.hannesdorfmann.mosby3.mvp.MvpNullObjectBasePresenter
-import com.hannesdorfmann.mosby3.mvp.MvpPresenter
 import cz.inventi.inventiskeleton.data.model.Post
 import cz.inventi.inventiskeleton.domain.post.GetPostListUseCase
 import cz.inventi.inventiskeleton.presentation.common.PresentationObserver
@@ -15,7 +14,7 @@ class PostListPresenter @Inject constructor(val useCase: GetPostListUseCase) : M
 
     override fun attachView(view: PostListView) {
         super.attachView(view)
-        useCase.execute(PostListObserver(view), Unit)
+        useCase.execute(PostListObserver(view), GetPostListUseCase.Params(limit = 20))
     }
 
     override fun detachView(retainInstance: Boolean) {
@@ -24,11 +23,15 @@ class PostListPresenter @Inject constructor(val useCase: GetPostListUseCase) : M
 
     class PostListObserver constructor(view: PostListView): PresentationObserver<List<Post>, PostListView>(view) {
         override fun onNext(list: List<Post>) {
-            onView { it.showText(list[0].title + " Total number: " + list.size) }
+            onView { it.showPostList(list) }
         }
     }
 
     fun reloadList() {
-        useCase.execute(PostListObserver(view), Unit)
+        useCase.execute(PostListObserver(view), GetPostListUseCase.Params(limit = 2))
+    }
+
+    fun onPostSelected(post: Post) {
+        view.showError("Not implemented yet " + post)
     }
 }

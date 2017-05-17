@@ -1,16 +1,17 @@
 package cz.inventi.inventiskeleton.presentation.post.list
 
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.TextView
 import cz.inventi.inventiskeleton.R
+import cz.inventi.inventiskeleton.data.model.Post
 import cz.inventi.inventiskeleton.di.conductorlib.ConductorInjection
 import cz.inventi.inventiskeleton.presentation.common.BaseController
 import cz.inventi.inventiskeleton.presentation.common.bindView
 import javax.inject.Inject
-
 
 
 /**
@@ -19,10 +20,12 @@ import javax.inject.Inject
 
 class PostListController : BaseController<PostListView, PostListPresenter>(), PostListView {
 
-    internal val testText: TextView by bindView(R.id.test_text)
     internal val reloadBtn: Button by bindView(R.id.reload_btn)
+    internal val listView: RecyclerView by bindView(R.id.list_view)
 
     @Inject lateinit var postListPresenter: PostListPresenter
+
+    val postListAdapter = PostListAdapter()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View {
         ConductorInjection.inject(this)
@@ -31,6 +34,11 @@ class PostListController : BaseController<PostListView, PostListPresenter>(), Po
 
     override fun onViewBind(view: View) {
         reloadBtn.setOnClickListener { presenter.reloadList() }
+
+        listView.setHasFixedSize(true)
+        listView.layoutManager = LinearLayoutManager(activity)
+        listView.adapter = postListAdapter
+        postListAdapter.onPostSelectedListener = {post ->  presenter.onPostSelected(post)}
     }
 
     override fun inflateView(inflater: LayoutInflater, container: ViewGroup): View {
@@ -41,8 +49,8 @@ class PostListController : BaseController<PostListView, PostListPresenter>(), Po
         return postListPresenter
     }
 
-    override fun showText(text: String) {
-        testText.text = text
+    override fun showPostList(posts: List<Post>) {
+        postListAdapter.updateData(posts)
     }
 
 }
