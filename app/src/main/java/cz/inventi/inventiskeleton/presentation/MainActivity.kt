@@ -7,7 +7,7 @@ import com.bluelinelabs.conductor.Conductor
 import com.bluelinelabs.conductor.Router
 import com.bluelinelabs.conductor.RouterTransaction
 import cz.inventi.inventiskeleton.R
-import cz.inventi.inventiskeleton.domain.common.ActionBarProvider
+import cz.inventi.inventiskeleton.presentation.common.ActionBarProvider
 import cz.inventi.inventiskeleton.presentation.post.list.PostListController
 import dagger.android.AndroidInjection
 

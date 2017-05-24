@@ -6,11 +6,7 @@ import android.support.v7.app.ActionBar
 import android.view.View
 import android.view.ViewGroup
 
-import com.bluelinelabs.conductor.Controller
 import com.hannesdorfmann.mosby3.mvp.MvpPresenter
-import com.hannesdorfmann.mosby3.mvp.MvpView
-
-import cz.inventi.inventiskeleton.domain.common.ActionBarProvider
 
 /**
  * Created by tomas.valenta on 5/11/2017.
