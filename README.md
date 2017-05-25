@@ -67,6 +67,9 @@ TODO List
 - [X] Setup retrofit with first api call
 - [X] Architect use cases and domain logic
 - [X] Architect Repository and data layer
+- [ ] Remote error handling
+- [ ] Correct repository data source observable composition
+- [ ] Presenter subscription management and config change
 
 
 License
