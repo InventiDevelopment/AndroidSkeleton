@@ -62,10 +62,11 @@ TODO List
 - [x] Create Main activity as an conductor host
 - [x] Create first example screen with view(conductor), presenter
 - [x] Translate everything to kotlin
-- [ ] Setup dagger for everything
-- [ ] Setup leakCanary
-- [ ] Setup retrofit with first api call
-- [ ] Architect use cases and domain logic
+- [X] Setup dagger for everything
+- [X] Setup leakCanary
+- [X] Setup retrofit with first api call
+- [X] Architect use cases and domain logic
+- [X] Architect Repository and data layer
 
 
 License

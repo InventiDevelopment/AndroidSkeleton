@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import cz.inventi.inventiskeleton.R
-import cz.inventi.inventiskeleton.data.model.Post
+import cz.inventi.inventiskeleton.data.post.Post
 import cz.inventi.inventiskeleton.di.conductorlib.ConductorInjection
 import cz.inventi.inventiskeleton.presentation.common.BaseController
 import cz.inventi.inventiskeleton.presentation.common.bindView

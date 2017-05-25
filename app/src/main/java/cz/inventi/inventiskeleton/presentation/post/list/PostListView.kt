@@ -1,6 +1,6 @@
 package cz.inventi.inventiskeleton.presentation.post.list
 
-import cz.inventi.inventiskeleton.data.model.Post
+import cz.inventi.inventiskeleton.data.post.Post
 import cz.inventi.inventiskeleton.presentation.common.BaseView
 
 /**

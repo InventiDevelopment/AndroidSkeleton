@@ -136,6 +136,8 @@ dependencies {
     compile "com.facebook.stetho:stetho:$stetho"
     compile "com.facebook.stetho:stetho-okhttp3:$stetho"
 
+    compile 'com.f2prateek.rx.preferences2:rx-preferences:2.0.0-RC2'
+
     // butterKnife
 //    compile "com.jakewharton:butterknife:$butterKnife"
 //    kapt "com.jakewharton:butterknife-compiler:$butterKnife"

@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import cz.inventi.inventiskeleton.R
-import cz.inventi.inventiskeleton.data.model.Post
+import cz.inventi.inventiskeleton.data.post.Post
 import cz.inventi.inventiskeleton.presentation.common.ViewBinder
 import cz.inventi.inventiskeleton.presentation.common.bindView
 

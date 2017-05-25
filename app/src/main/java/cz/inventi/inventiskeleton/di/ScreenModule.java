@@ -1,11 +1,20 @@
 package cz.inventi.inventiskeleton.di;
 
 
+import android.content.SharedPreferences;
+
+import com.f2prateek.rx.preferences2.RxSharedPreferences;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
+import com.google.gson.Gson;
+
+import javax.inject.Named;
 
 import cz.inventi.inventiskeleton.BuildConfig;
-import cz.inventi.inventiskeleton.data.remote.PlaceholderService;
+import cz.inventi.inventiskeleton.data.common.remote.RemotePlaceholderService;
+import cz.inventi.inventiskeleton.data.post.LocalPostStore;
+import cz.inventi.inventiskeleton.data.post.PostDataRepository;
 import cz.inventi.inventiskeleton.domain.post.GetPostListUseCase;
+import cz.inventi.inventiskeleton.domain.post.PostRepository;
 import cz.inventi.inventiskeleton.presentation.post.list.PostListPresenter;
 import dagger.Module;
 import dagger.Provides;
@@ -16,9 +25,6 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-
-
-import javax.inject.Named;
 
 
 @Module
@@ -43,12 +49,29 @@ public class ScreenModule {
     // TODO not sure if this should be here
     @Provides
     @ScreenScope
-    static GetPostListUseCase provideGetPostListUseCase(PlaceholderService placeholderService){
+    static GetPostListUseCase provideGetPostListUseCase(PostRepository postRepository){
         // TODO these two should be also injected
-        return new GetPostListUseCase(placeholderService, () -> Schedulers.newThread(), () -> AndroidSchedulers.mainThread());
+        return new GetPostListUseCase(postRepository, () -> Schedulers.newThread(), () -> AndroidSchedulers.mainThread());
     }
 
 
+    @Provides
+    @ScreenScope
+    static PostRepository providePostRepository(RemotePlaceholderService remoteStore, LocalPostStore localStore){
+        return new PostDataRepository(remoteStore, localStore);
+    }
+
+    @Provides
+    @ScreenScope
+    static LocalPostStore provideLocalPostStore(RxSharedPreferences rxPreferences, SharedPreferences sharedPreferences){
+        return new LocalPostStore(rxPreferences, sharedPreferences, new Gson());
+    }
+
+    @Provides
+    @ScreenScope
+    static RxSharedPreferences provideRxSharedPreferences(SharedPreferences sharedPreferences){
+        return RxSharedPreferences.create(sharedPreferences);
+    }
 
     @Provides
     @ScreenScope
@@ -64,8 +87,8 @@ public class ScreenModule {
 
     @Provides
     @ScreenScope
-    static PlaceholderService provideService(Retrofit retrofit){
-        return retrofit.create(PlaceholderService.class);
+    static RemotePlaceholderService provideService(Retrofit retrofit){
+        return retrofit.create(RemotePlaceholderService.class);
     }
 
     @Provides

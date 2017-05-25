@@ -1,7 +1,7 @@
 package cz.inventi.inventiskeleton.presentation.post.list
 
 import com.hannesdorfmann.mosby3.mvp.MvpNullObjectBasePresenter
-import cz.inventi.inventiskeleton.data.model.Post
+import cz.inventi.inventiskeleton.data.post.Post
 import cz.inventi.inventiskeleton.domain.post.GetPostListUseCase
 import cz.inventi.inventiskeleton.presentation.common.PresentationObserver
 import javax.inject.Inject
@@ -28,7 +28,7 @@ class PostListPresenter @Inject constructor(val useCase: GetPostListUseCase) : M
     }
 
     fun reloadList() {
-        useCase.execute(PostListObserver(view), GetPostListUseCase.Params(limit = 2))
+        useCase.execute(PostListObserver(view), GetPostListUseCase.Params(limit = 5))
     }
 
     fun onPostSelected(post: Post) {
