@@ -1,4 +1,4 @@
-package cz.inventi.inventiskeleton.domain.common
+package cz.inventi.inventiskeleton.presentation.common
 
 import android.support.v7.app.ActionBar
 
