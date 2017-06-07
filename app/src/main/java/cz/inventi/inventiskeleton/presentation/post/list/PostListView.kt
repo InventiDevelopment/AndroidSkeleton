@@ -9,4 +9,5 @@ import cz.inventi.inventiskeleton.presentation.common.BaseView
 
 interface PostListView : BaseView {
     fun showPostList(posts: List<Post>)
+    fun showAddPost()
 }

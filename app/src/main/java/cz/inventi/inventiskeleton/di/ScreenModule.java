@@ -15,6 +15,7 @@ import cz.inventi.inventiskeleton.data.post.LocalPostStore;
 import cz.inventi.inventiskeleton.data.post.PostDataRepository;
 import cz.inventi.inventiskeleton.domain.post.GetPostListUseCase;
 import cz.inventi.inventiskeleton.domain.post.PostRepository;
+import cz.inventi.inventiskeleton.presentation.post.add.PostAddPresenter;
 import cz.inventi.inventiskeleton.presentation.post.list.PostListPresenter;
 import dagger.Module;
 import dagger.Provides;
@@ -44,6 +45,12 @@ public class ScreenModule {
     @ScreenScope
     static PostListPresenter providePostListPresenter(GetPostListUseCase getPostListUseCase){
         return new PostListPresenter(getPostListUseCase);
+    }
+
+    @Provides
+    @ScreenScope
+    static PostAddPresenter providePostAddPresenter(){
+        return new PostAddPresenter();
     }
 
     // TODO not sure if this should be here

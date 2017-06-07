@@ -6,11 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import com.bluelinelabs.conductor.RouterTransaction
+import com.jakewharton.rxbinding2.view.RxView
 import cz.inventi.inventiskeleton.R
 import cz.inventi.inventiskeleton.data.post.Post
 import cz.inventi.inventiskeleton.di.conductorlib.ConductorInjection
 import cz.inventi.inventiskeleton.presentation.common.BaseController
 import cz.inventi.inventiskeleton.presentation.common.bindView
+import cz.inventi.inventiskeleton.presentation.post.add.PostAddController
 import javax.inject.Inject
 
 
@@ -22,6 +25,7 @@ class PostListController : BaseController<PostListView, PostListPresenter>(), Po
 
     internal val reloadBtn: Button by bindView(R.id.reload_btn)
     internal val listView: RecyclerView by bindView(R.id.list_view)
+    internal val addPost: View by bindView(R.id.add_post)
 
     @Inject lateinit var postListPresenter: PostListPresenter
 
@@ -39,10 +43,13 @@ class PostListController : BaseController<PostListView, PostListPresenter>(), Po
         listView.layoutManager = LinearLayoutManager(activity)
         listView.adapter = postListAdapter
         postListAdapter.onPostSelectedListener = {post ->  presenter.onPostSelected(post)}
+
+        // refactor someday
+        RxView.clicks(addPost).subscribe({presenter.onAddPost()})
     }
 
     override fun inflateView(inflater: LayoutInflater, container: ViewGroup): View {
-        return inflater.inflate(R.layout.controller_list, container, false)
+        return inflater.inflate(R.layout.controller_post_list, container, false)
     }
 
     override fun createPresenter(): PostListPresenter {
@@ -51,6 +58,10 @@ class PostListController : BaseController<PostListView, PostListPresenter>(), Po
 
     override fun showPostList(posts: List<Post>) {
         postListAdapter.updateData(posts)
+    }
+
+    override fun showAddPost() {
+        router.pushController(RouterTransaction.with(PostAddController()))
     }
 
 }
