@@ -21,7 +21,7 @@ class LocalPostStore @Inject constructor(val rxSharedPref: RxSharedPreferences, 
 
     fun postList(): Observable<List<Post>> {
         val listType = object : TypeToken<ArrayList<Post>>() {}.type
-        return rxSharedPref.getString(POSTS_PREF).asObservable().map { gson.fromJson<List<Post>>(it, listType) }
+        return rxSharedPref.getString(POSTS_PREF, "[]").asObservable().map { gson.fromJson<List<Post>>(it, listType) }
     }
 
     fun savePostList(postList: List<Post>) {
