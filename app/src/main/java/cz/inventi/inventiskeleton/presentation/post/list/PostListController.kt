@@ -14,6 +14,7 @@ import cz.inventi.inventiskeleton.di.conductorlib.ConductorInjection
 import cz.inventi.inventiskeleton.presentation.common.BaseController
 import cz.inventi.inventiskeleton.presentation.common.bindView
 import cz.inventi.inventiskeleton.presentation.post.add.PostAddController
+import cz.inventi.inventiskeleton.presentation.post.detail.PostDetailController
 import javax.inject.Inject
 
 
@@ -58,6 +59,10 @@ class PostListController : BaseController<PostListView, PostListPresenter>(), Po
 
     override fun showPostList(posts: List<Post>) {
         postListAdapter.updateData(posts)
+    }
+
+    override fun showDetailPost(id: Int) {
+        router.pushController(RouterTransaction.with(PostDetailController.instance(id)))
     }
 
     override fun showAddPost() {

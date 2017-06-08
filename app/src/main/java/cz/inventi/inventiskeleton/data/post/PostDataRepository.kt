@@ -10,7 +10,7 @@ import javax.inject.Inject
  */
 class PostDataRepository @Inject constructor(val remoteStore: RemotePlaceholderService, val localStore: LocalPostStore) : PostRepository {
 
-    override fun post(postId: Int): Observable<Post?> {
+    override fun post(postId: Int): Observable<Post> {
         val remotePost = remoteStore.post(postId) // TODO update individual post in db
         val localPost = localStore.post(postId)
         return Observable.merge(remotePost, localPost) // TODO error handling an fix multiple return

@@ -13,9 +13,11 @@ import cz.inventi.inventiskeleton.BuildConfig;
 import cz.inventi.inventiskeleton.data.common.remote.RemotePlaceholderService;
 import cz.inventi.inventiskeleton.data.post.LocalPostStore;
 import cz.inventi.inventiskeleton.data.post.PostDataRepository;
+import cz.inventi.inventiskeleton.domain.post.GetPostDetailUseCase;
 import cz.inventi.inventiskeleton.domain.post.GetPostListUseCase;
 import cz.inventi.inventiskeleton.domain.post.PostRepository;
 import cz.inventi.inventiskeleton.presentation.post.add.PostAddPresenter;
+import cz.inventi.inventiskeleton.presentation.post.detail.PostDetailPresenter;
 import cz.inventi.inventiskeleton.presentation.post.list.PostListPresenter;
 import dagger.Module;
 import dagger.Provides;
@@ -53,14 +55,26 @@ public class ScreenModule {
         return new PostAddPresenter();
     }
 
+    @Provides
+    @ScreenScope
+    static PostDetailPresenter providePostDetailPresenter(GetPostDetailUseCase getPostDetailUseCase){
+        return new PostDetailPresenter(getPostDetailUseCase);
+    }
+
     // TODO not sure if this should be here
     @Provides
     @ScreenScope
     static GetPostListUseCase provideGetPostListUseCase(PostRepository postRepository){
         // TODO these two should be also injected
-        return new GetPostListUseCase(postRepository, () -> Schedulers.newThread(), () -> AndroidSchedulers.mainThread());
+        return new GetPostListUseCase(postRepository, Schedulers::newThread, AndroidSchedulers::mainThread);
     }
 
+    @Provides
+    @ScreenScope
+    static GetPostDetailUseCase provideGetPostDetailUseCase(PostRepository postRepository){
+        // TODO these two should be also injected
+        return new GetPostDetailUseCase(postRepository, Schedulers::newThread, AndroidSchedulers::mainThread);
+    }
 
     @Provides
     @ScreenScope

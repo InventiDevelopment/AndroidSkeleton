@@ -7,6 +7,6 @@ import io.reactivex.Observable
  * Created by tomas.valenta on 5/25/2017.
  */
 interface PostRepository {
-    fun post(postId: Int): Observable<Post?>
+    fun post(postId: Int): Observable<Post>
     fun postList(): Observable<List<Post>>
 }

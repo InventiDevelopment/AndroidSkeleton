@@ -15,7 +15,7 @@ class LocalPostStore @Inject constructor(val rxSharedPref: RxSharedPreferences, 
 
     val POSTS_PREF = "posts"
 
-    fun post(postId: Int): Observable<Post?> {
+    fun post(postId: Int): Observable<Post> {
         return postList().map { it.firstOrNull { it.id == postId } }
     }
 

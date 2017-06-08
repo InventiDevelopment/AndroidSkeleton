@@ -32,7 +32,7 @@ class PostListPresenter @Inject constructor(val useCase: GetPostListUseCase) : M
     }
 
     fun onPostSelected(post: Post) {
-        view.showError("Not implemented yet " + post)
+        view.showDetailPost(post.id)
     }
 
     fun onAddPost() {
