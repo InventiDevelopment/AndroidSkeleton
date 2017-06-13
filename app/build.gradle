@@ -122,7 +122,6 @@ dependencies {
     compile "com.google.dagger:dagger-android-support:$dagger"
     kapt "com.google.dagger:dagger-compiler:$dagger"
     kapt "com.google.dagger:dagger-android-processor:$dagger"
-    provided 'org.glassfish:javax.annotation:10.0-b28'
 
     // retrofit
     compile "com.squareup.retrofit2:retrofit:$retrofit"
@@ -136,8 +135,6 @@ dependencies {
     compile "com.facebook.stetho:stetho:$stetho"
     compile "com.facebook.stetho:stetho-okhttp3:$stetho"
 
-    compile 'com.f2prateek.rx.preferences2:rx-preferences:2.0.0-RC2'
-
     // butterKnife
 //    compile "com.jakewharton:butterknife:$butterKnife"
 //    kapt "com.jakewharton:butterknife-compiler:$butterKnife"
@@ -147,11 +144,16 @@ dependencies {
     compile "com.jakewharton.rxbinding2:rxbinding-support-v4:$rxBinding"
     compile "com.jakewharton.rxbinding2:rxbinding-appcompat-v7:$rxBinding"
 
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
 
     debugCompile "com.squareup.leakcanary:leakcanary-android:$leakCanary"
     releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanary"
     testCompile "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanary"
 
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    compile 'com.f2prateek.rx.preferences2:rx-preferences:2.0.0-RC2'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'com.google.firebase:firebase-database:10.0.1'
+    provided 'org.glassfish:javax.annotation:10.0-b28'
 }
+
+apply plugin: 'com.google.gms.google-services'
