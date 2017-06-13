@@ -48,7 +48,8 @@ abstract class BaseController<V : BaseView, P : MvpPresenter<V>> : RefWatchingCo
     }
 
     override fun showError(errorText: String) {
-        (activity?.findViewById(android.R.id.content) as ViewGroup).getChildAt(0)?.let {
+        val content: ViewGroup? = activity?.findViewById(android.R.id.content)
+        content?.getChildAt(0)?.let {
             Snackbar.make(it, errorText, Snackbar.LENGTH_LONG).show()
         }
     }
