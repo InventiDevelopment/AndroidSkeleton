@@ -70,6 +70,11 @@ TODO List
 - [ ] Remote error handling
 - [ ] Correct repository data source observable composition
 - [ ] Presenter subscription management and config change
+- [ ] Configuration change data management
+- [ ] All the preparations for for testing(mock flavour etc)
+- [ ] Write unit and UI tests
+- [ ] Firebase branch
+
 
 
 License
