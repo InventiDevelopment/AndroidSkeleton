@@ -19,6 +19,7 @@ import cz.inventi.inventiskeleton.domain.post.PostRepository;
 import cz.inventi.inventiskeleton.presentation.post.add.PostAddPresenter;
 import cz.inventi.inventiskeleton.presentation.post.detail.PostDetailPresenter;
 import cz.inventi.inventiskeleton.presentation.post.list.PostListPresenter;
+import cz.inventi.inventiskeleton.presentation.post.list.mvi.MviPostListPresenter;
 import dagger.Module;
 import dagger.Provides;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -59,6 +60,13 @@ public class ScreenModule {
     @ScreenScope
     static PostDetailPresenter providePostDetailPresenter(GetPostDetailUseCase getPostDetailUseCase){
         return new PostDetailPresenter(getPostDetailUseCase);
+    }
+
+    // TODO not sure if this should be here
+    @Provides
+    @ScreenScope
+    static MviPostListPresenter provideMviPostListPresenter(GetPostListUseCase getPostListUseCase){
+        return new MviPostListPresenter(getPostListUseCase);
     }
 
     // TODO not sure if this should be here

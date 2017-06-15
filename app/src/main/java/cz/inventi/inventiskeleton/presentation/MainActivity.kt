@@ -8,7 +8,7 @@ import com.bluelinelabs.conductor.Router
 import com.bluelinelabs.conductor.RouterTransaction
 import cz.inventi.inventiskeleton.R
 import cz.inventi.inventiskeleton.presentation.common.ActionBarProvider
-import cz.inventi.inventiskeleton.presentation.post.list.PostListController
+import cz.inventi.inventiskeleton.presentation.post.list.mvi.MviPostListController
 import dagger.android.AndroidInjection
 
 open class MainActivity : AppCompatActivity(), ActionBarProvider {
@@ -26,7 +26,8 @@ open class MainActivity : AppCompatActivity(), ActionBarProvider {
 
         router = Conductor.attachRouter(this, controllerContainer, savedInstanceState)
         if (!router.hasRootController()) {
-            router.setRoot(RouterTransaction.with(PostListController()))
+//            router.setRoot(RouterTransaction.with(PostListController()))
+            router.setRoot(RouterTransaction.with(MviPostListController()))
         }
     }
 
