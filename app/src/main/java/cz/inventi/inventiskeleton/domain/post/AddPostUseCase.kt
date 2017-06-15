@@ -11,16 +11,17 @@ import javax.inject.Inject
  * Created by tomas.valenta on 6/15/2017.
  */
 
-class AddPostUseCase @Inject constructor(val repository: PostRepository, threadExecutor: ThreadExecutor, postExecutionThread: PostExecutionThread) : UseCase<AddPostUseCase.PostAddViewState, AddPostUseCase.Params>(threadExecutor, postExecutionThread) {
+class AddPostUseCase @Inject constructor(val repository: PostRepository, threadExecutor: ThreadExecutor, postExecutionThread: PostExecutionThread) : UseCase<PostAddViewState, AddPostUseCase.Params>(threadExecutor, postExecutionThread) {
 
     override fun buildUseCaseObservable(params: AddPostUseCase.Params): Observable<PostAddViewState> {
-        val error = PostAddViewState.ValidationError(isTitleValid(params), isBodyValid(params))
-
-        if (error.bodyError || error.titleError) {
-            return Observable.just(error)
-        } else {
-            return repository.savePost(params.title, params.body).map { PostAddViewState.Success(it) }
-        }
+//        val error = PostAddViewState.ValidationError(isTitleValid(params), isBodyValid(params))
+//
+//        if (error.bodyError || error.titleError) {
+//            return Observable.just(error)
+//        } else {
+//            return repository.savePost(params.title, params.body).map { PostAddViewState.Success(it) }
+//        }
+        return Observable.empty()
     }
 
     private fun isTitleValid(params: Params) = params.title.length >= 3
@@ -28,9 +29,9 @@ class AddPostUseCase @Inject constructor(val repository: PostRepository, threadE
 
     data class Params(val title: String, val body: String)
 
-    sealed class PostAddViewState {
-        data class Success(val post: Post) : PostAddViewState()
-        data class ValidationError(val titleError: Boolean, val bodyError: Boolean) : PostAddViewState()
-        object Loading: PostAddViewState()
-    }
 }
+
+sealed class PostAddViewState
+data class Success(val post: Post) : PostAddViewState()
+data class ValidationError(val titleError: Boolean, val bodyError: Boolean) : PostAddViewState()
+object Loading: PostAddViewState()

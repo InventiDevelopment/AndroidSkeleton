@@ -10,7 +10,7 @@ import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView
 import cz.inventi.inventiskeleton.R
 import cz.inventi.inventiskeleton.di.conductorlib.ConductorInjection
-import cz.inventi.inventiskeleton.presentation.common.BaseController
+import cz.inventi.inventiskeleton.presentation.common.BaseMviController
 import cz.inventi.inventiskeleton.presentation.common.bindView
 import io.reactivex.Observable
 import javax.inject.Inject
@@ -19,7 +19,8 @@ import javax.inject.Inject
  * Created by tomas.valenta on 6/7/2017.
  */
 
-class PostAddController  : BaseController<PostAddView, PostAddPresenter>(), PostAddView {
+class PostAddController  : BaseMviController<PostAddView, PostAddPresenter>(), PostAddView {
+
 
     @Inject lateinit var postAddPresenter: PostAddPresenter
 
@@ -48,13 +49,11 @@ class PostAddController  : BaseController<PostAddView, PostAddPresenter>(), Post
 
     override fun bodyEditEvents(): Observable<String> = observeEditTextChanges(bodyEdit)
 
-    override fun renderState(viewState: PostAddViewState) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
     private fun observeEditTextChanges(editText: EditText): Observable<String> {
         return RxTextView.textChanges(editText).skipInitialValue().map { e -> e.toString() }
     }
+
+    override fun render(viewState: String) =  bodyEdit.setText(viewState)
 
 }
 
