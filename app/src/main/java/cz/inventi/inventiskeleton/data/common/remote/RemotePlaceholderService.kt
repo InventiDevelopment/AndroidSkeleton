@@ -1,5 +1,6 @@
 package cz.inventi.inventiskeleton.data.common.remote
 
+import cz.inventi.inventiskeleton.data.comment.Comment
 import cz.inventi.inventiskeleton.data.post.Post
 import io.reactivex.Observable
 import retrofit2.http.GET
@@ -15,4 +16,8 @@ interface RemotePlaceholderService {
 
     @GET("posts/{id}")
     fun post(@Path("id") id: Int): Observable<Post>
+
+    @GET("posts/{id}/comments")
+    fun commentList(@Path("id") id: Int): Observable<List<Comment>>
+
 }
