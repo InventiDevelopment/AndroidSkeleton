@@ -9,4 +9,5 @@ import io.reactivex.Observable
 interface PostRepository {
     fun post(postId: Int): Observable<Post>
     fun postList(): Observable<List<Post>>
+    fun savePost(title: String, body: String): Observable<Post>
 }
