@@ -4,15 +4,12 @@ import android.content.SharedPreferences;
 
 import com.f2prateek.rx.preferences2.RxSharedPreferences;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
-import com.google.gson.Gson;
+import com.google.firebase.database.FirebaseDatabase;
 
 import javax.inject.Named;
 
 import cz.inventi.inventiskeleton.BuildConfig;
 import cz.inventi.inventiskeleton.data.comment.CommentDataRepository;
-import cz.inventi.inventiskeleton.data.comment.LocalCommentStore;
-import cz.inventi.inventiskeleton.data.common.remote.RemotePlaceholderService;
-import cz.inventi.inventiskeleton.data.post.LocalPostStore;
 import cz.inventi.inventiskeleton.data.post.PostDataRepository;
 import cz.inventi.inventiskeleton.domain.comment.CommentRepository;
 import cz.inventi.inventiskeleton.domain.post.GetPostDetailUseCase;
@@ -71,6 +68,14 @@ public class ScreenModule {
         return new GetPostListUseCase(postRepository, Schedulers::newThread, AndroidSchedulers::mainThread);
     }
 
+
+    @Provides
+    @ScreenScope
+    static PostRepository providePostRepository(FirebaseDatabase firebaseDatabase){
+        return new PostDataRepository(firebaseDatabase);
+    }
+
+
     @Provides
     @ScreenScope
     static GetPostDetailUseCase provideGetPostDetailUseCase(PostRepository postRepository, CommentRepository commentRepository){
@@ -80,26 +85,14 @@ public class ScreenModule {
 
     @Provides
     @ScreenScope
-    static PostRepository providePostRepository(RemotePlaceholderService remoteStore, LocalPostStore localStore){
-        return new PostDataRepository(remoteStore, localStore);
+    static CommentRepository provideCommentRepository(FirebaseDatabase firebaseDatabase){
+        return new CommentDataRepository(firebaseDatabase);
     }
 
     @Provides
     @ScreenScope
-    static LocalPostStore provideLocalPostStore(RxSharedPreferences rxPreferences, SharedPreferences sharedPreferences){
-        return new LocalPostStore(rxPreferences, sharedPreferences, new Gson());
-    }
-
-    @Provides
-    @ScreenScope
-    static CommentRepository provideCommentRepository(RemotePlaceholderService remoteStore, LocalCommentStore localStore){
-        return new CommentDataRepository(remoteStore, localStore);
-    }
-
-    @Provides
-    @ScreenScope
-    static LocalCommentStore provideLocalCommentStore(RxSharedPreferences rxPreferences, SharedPreferences sharedPreferences){
-        return new LocalCommentStore(rxPreferences, sharedPreferences, new Gson());
+    static FirebaseDatabase provideFirebaseDatabase(){
+        return FirebaseDatabase.getInstance();
     }
 
     @Provides
@@ -117,12 +110,6 @@ public class ScreenModule {
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(client)
                 .build();
-    }
-
-    @Provides
-    @ScreenScope
-    static RemotePlaceholderService provideService(Retrofit retrofit){
-        return retrofit.create(RemotePlaceholderService.class);
     }
 
     @Provides

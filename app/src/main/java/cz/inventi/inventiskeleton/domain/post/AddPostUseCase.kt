@@ -4,7 +4,7 @@ import cz.inventi.inventiskeleton.data.post.Post
 import cz.inventi.inventiskeleton.domain.common.PostExecutionThread
 import cz.inventi.inventiskeleton.domain.common.ThreadExecutor
 import cz.inventi.inventiskeleton.domain.common.UseCase
-import io.reactivex.Observable
+import io.reactivex.Flowable
 import javax.inject.Inject
 
 /**
@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 class AddPostUseCase @Inject constructor(val repository: PostRepository, threadExecutor: ThreadExecutor, postExecutionThread: PostExecutionThread) : UseCase<PostAddViewState, AddPostUseCase.Params>(threadExecutor, postExecutionThread) {
 
-    override fun buildUseCaseObservable(params: AddPostUseCase.Params): Observable<PostAddViewState> {
+    override fun buildUseCaseObservable(params: AddPostUseCase.Params): Flowable<PostAddViewState> {
 //        val error = PostAddViewState.ValidationError(isTitleValid(params), isBodyValid(params))
 //
 //        if (error.bodyError || error.titleError) {
@@ -21,7 +21,7 @@ class AddPostUseCase @Inject constructor(val repository: PostRepository, threadE
 //        } else {
 //            return repository.savePost(params.title, params.body).map { PostAddViewState.Success(it) }
 //        }
-        return Observable.empty()
+        return Flowable.empty()
     }
 
     private fun isTitleValid(params: Params) = params.title.length >= 3

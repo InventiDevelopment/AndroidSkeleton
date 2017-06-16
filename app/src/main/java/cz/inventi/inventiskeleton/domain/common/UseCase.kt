@@ -2,10 +2,12 @@ package cz.inventi.inventiskeleton.domain.common
 
 
 
+import io.reactivex.Flowable
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.observers.DisposableObserver
+import io.reactivex.subscribers.ResourceSubscriber
 
 /**
  * Abstract class for a Use Case (Interactor in terms of Clean Architecture).
@@ -25,7 +27,7 @@ abstract class UseCase<T, Params> internal constructor(private val threadExecuto
     /**
      * Builds an [Observable] which will be used when executing the current [UseCase].
      */
-    internal abstract fun buildUseCaseObservable(params: Params): Observable<T>
+    internal abstract fun buildUseCaseObservable(params: Params): Flowable<T>
 
     /**
      * Executes the current use case.
@@ -35,11 +37,11 @@ abstract class UseCase<T, Params> internal constructor(private val threadExecuto
      * *
      * @param params Parameters (Optional) used to build/execute this use case.
      */
-    fun execute(observer: DisposableObserver<T>, params: Params) {
-        val observable = this.buildUseCaseObservable(params)
+    fun execute(observer: ResourceSubscriber<T>, params: Params) {
+        val flowable: Flowable<T> = this.buildUseCaseObservable(params)
                 .subscribeOn(threadExecutor())
                 .observeOn(postExecutionThread())
-        addDisposable(observable.subscribeWith(observer))
+        addDisposable(flowable.subscribeWith(observer))
     }
 
     /**

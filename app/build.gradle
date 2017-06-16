@@ -80,6 +80,7 @@ def conductor = '2.1.2'
 def retrofit = '2.3.0'
 def okHttp = '3.8.0'
 def rxBinding = '2.0.0'
+def firebase = '11.0.0'
 //def butterKnife = '8.5.1'
 
 // debug
@@ -109,6 +110,12 @@ dependencies {
     compile "com.android.support:recyclerview-v7:$supportLib"
     compile "com.android.support:design:$supportLib"
     compile "com.android.support:cardview-v7:$supportLib"
+
+
+    compile "com.google.firebase:firebase-core:$firebase"
+    compile "com.google.firebase:firebase-database:$firebase"
+    compile 'com.github.frangsierra:rx2firebase:1.1.3'
+
 
     // RxJava
     compile "io.reactivex.rxjava2:rxandroid:$rxJava"
@@ -162,7 +169,6 @@ dependencies {
     testCompile "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanary"
 
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
-
 
     // testing
 

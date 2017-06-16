@@ -5,7 +5,7 @@ import cz.inventi.inventiskeleton.domain.comment.CommentRepository
 import cz.inventi.inventiskeleton.domain.common.PostExecutionThread
 import cz.inventi.inventiskeleton.domain.common.ThreadExecutor
 import cz.inventi.inventiskeleton.domain.common.UseCase
-import io.reactivex.Observable
+import io.reactivex.Flowable
 import io.reactivex.functions.BiFunction
 import javax.inject.Inject
 
@@ -19,12 +19,12 @@ class GetPostDetailUseCase @Inject constructor(val repositoryList: PostRepositor
                                                postExecutionThread: PostExecutionThread)
     : UseCase<Post, GetPostDetailUseCase.Params>(threadExecutor, postExecutionThread) {
 
-    data class Params(val postId: Int)
+    data class Params(val postId: Double)
 
-    override fun buildUseCaseObservable(params: Params): Observable<Post> {
+    override fun buildUseCaseObservable(params: Params): Flowable<Post> {
         val post = repositoryList.post(params.postId)
         val comments = repositoryComment.commentList(params.postId)
-        return Observable.combineLatest(post, comments, BiFunction { post, comments -> post.copy(comments = comments) })
+        return Flowable.combineLatest(post, comments, BiFunction { post, comments -> post })
     }
 
 }

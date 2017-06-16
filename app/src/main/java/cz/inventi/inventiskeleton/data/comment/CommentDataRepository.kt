@@ -1,20 +1,20 @@
 package cz.inventi.inventiskeleton.data.comment
 
-import cz.inventi.inventiskeleton.data.common.remote.RemotePlaceholderService
+import com.google.firebase.database.FirebaseDatabase
 import cz.inventi.inventiskeleton.domain.comment.CommentRepository
-import io.reactivex.Observable
+import durdinapps.rxfirebase2.DataSnapshotMapper
+import durdinapps.rxfirebase2.RxFirebaseDatabase
+import io.reactivex.Flowable
 import javax.inject.Inject
 
 /**
  * Created by ecnill on 14-Jun-17.
  */
 
-class CommentDataRepository @Inject constructor(val remoteStore: RemotePlaceholderService, val localStore: LocalCommentStore) : CommentRepository {
+class CommentDataRepository @Inject constructor(val dbStorage: FirebaseDatabase) : CommentRepository {
 
-    override fun commentList(postId: Int): Observable<List<Comment>> {
-        val remoteCommentList = remoteStore.commentList(postId).doOnNext { localStore.saveCommentList(it) }
-        val localCommentList = localStore.commentList()
-        return Observable.merge(localCommentList, remoteCommentList)
+    override fun commentList(postId: Double): Flowable<List<Comment>> {
+        return RxFirebaseDatabase.observeValueEvent(dbStorage.reference.child("comments").orderByChild("postId").equalTo(postId), DataSnapshotMapper.listOf(Comment::class.java))
     }
 
 }

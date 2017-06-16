@@ -4,7 +4,7 @@ import cz.inventi.inventiskeleton.data.post.Post
 import cz.inventi.inventiskeleton.domain.common.PostExecutionThread
 import cz.inventi.inventiskeleton.domain.common.ThreadExecutor
 import cz.inventi.inventiskeleton.domain.common.UseCase
-import io.reactivex.Observable
+import io.reactivex.Flowable
 import javax.inject.Inject
 
 /**
@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 class GetPostListUseCase @Inject constructor(val repository: PostRepository, threadExecutor: ThreadExecutor, postExecutionThread: PostExecutionThread) : UseCase<List<Post>, GetPostListUseCase.Params>(threadExecutor, postExecutionThread) {
 
-    override fun buildUseCaseObservable(params: Params): Observable<List<Post>> {
+    override fun buildUseCaseObservable(params: Params): Flowable<List<Post>> {
         return repository.postList().map { it.take(params.limit) }
     }
 

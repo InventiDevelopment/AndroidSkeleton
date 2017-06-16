@@ -1,19 +1,21 @@
 package cz.inventi.inventiskeleton.presentation.common
 
-import com.hannesdorfmann.mosby3.mvp.MvpView
-import io.reactivex.observers.DisposableObserver
+import io.reactivex.subscribers.ResourceSubscriber
 import java.lang.ref.WeakReference
 
 /**
  * Created by tomas.valenta on 5/11/2017.
  */
 
-abstract class PresentationObserver<T, V: BaseView> constructor(view: V) : DisposableObserver<T>()  {
+abstract class PresentationObserver<T, V: BaseView> constructor(view: V) : ResourceSubscriber<T>()  {
 
     private val viewRef: WeakReference<V> = WeakReference(view)
 
     override fun onError(e: Throwable?) {
-        onView { it.showError(e!!.message!!) }
+        e?.printStackTrace()
+        if (e != null && e.message != null) {
+            onView { it.showError(e.message!!) }
+        }
     }
 
     override fun onComplete() {
@@ -23,5 +25,7 @@ abstract class PresentationObserver<T, V: BaseView> constructor(view: V) : Dispo
     protected fun onView(func: (V) -> Unit) {
         viewRef.get()?.let { func(it) }
     }
+
+
 
 }

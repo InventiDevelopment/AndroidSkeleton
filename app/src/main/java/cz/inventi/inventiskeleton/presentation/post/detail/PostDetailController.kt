@@ -65,7 +65,7 @@ class PostDetailController(bundle: Bundle) : BaseController<PostDetailView, Post
         postTitle.text = post.title
         postBody.text = post.body
         postUserId.text = post.userId.toString()
-        showComments(post.comments)
+//        showComments(post.comments)
     }
 
     override fun showComments(comments: List<Comment>) {
