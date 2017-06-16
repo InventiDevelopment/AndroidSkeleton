@@ -10,11 +10,11 @@ import javax.inject.Inject
  * Created by semanticer on 05.05.2017.
  */
 
-class PostListPresenter @Inject constructor(val useCase: GetPostListUseCase) : MvpNullObjectBasePresenter<PostListView>() {
+class PostListPresenter @Inject constructor(private val useCase: GetPostListUseCase) : MvpNullObjectBasePresenter<PostListView>() {
 
     override fun attachView(view: PostListView) {
         super.attachView(view)
-        useCase.execute(PostListObserver(view), GetPostListUseCase.Params(limit = 20))
+        reloadList()
     }
 
     override fun detachView(retainInstance: Boolean) {
@@ -28,7 +28,7 @@ class PostListPresenter @Inject constructor(val useCase: GetPostListUseCase) : M
     }
 
     fun reloadList() {
-        useCase.execute(PostListObserver(view), GetPostListUseCase.Params(limit = 5))
+        useCase.execute(PostListObserver(view), GetPostListUseCase.Params(limit = 20))
     }
 
     fun onPostSelected(post: Post) {

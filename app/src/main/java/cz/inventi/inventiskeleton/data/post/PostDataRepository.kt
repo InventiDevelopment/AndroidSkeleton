@@ -9,6 +9,9 @@ import javax.inject.Inject
  * Created by tomas.valenta on 5/25/2017.
  */
 class PostDataRepository @Inject constructor(val remoteStore: RemotePlaceholderService, val localStore: LocalPostStore) : PostRepository {
+    override fun savePost(title: String, body: String): Observable<Post> {
+        return Observable.just(Post(489, 489, title, body))
+    }
 
     override fun post(postId: Int): Observable<Post> {
         val remotePost = remoteStore.post(postId) // TODO update individual post in db

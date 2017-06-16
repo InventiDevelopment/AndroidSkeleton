@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">InventiSkeleton</string>
+    <string name="show_more_comments">Show more comments</string>
 </resources>

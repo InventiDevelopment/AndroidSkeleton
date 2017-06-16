@@ -5,15 +5,13 @@ import android.os.Bundle
 import android.view.View
 import com.bluelinelabs.conductor.ControllerChangeHandler
 import com.bluelinelabs.conductor.ControllerChangeType
-
-import com.hannesdorfmann.mosby3.mvp.MvpPresenter
-import com.hannesdorfmann.mosby3.mvp.conductor.MvpController
+import com.hannesdorfmann.mosby3.MviController
+import com.hannesdorfmann.mosby3.mvi.MviPresenter
 
 /**
- * Created by tomas.valenta on 5/11/2017.
+ * Created by tomas.valenta on 6/15/2017.
  */
-
-abstract class BaseController<V : BaseView, P : MvpPresenter<V>> : MvpController<V, P>, BaseView, RefWatcherDelegate, ViewBindingDelegate {
+abstract class BaseMviController <V : BaseView, P : MviPresenter<V, *>> : MviController<V, P>, BaseView, RefWatcherDelegate, ViewBindingDelegate {
 
     protected constructor() {}
 

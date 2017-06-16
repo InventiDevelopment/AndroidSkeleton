@@ -1,7 +1,7 @@
 package cz.inventi.inventiskeleton.presentation
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.view.ViewGroup
 import com.bluelinelabs.conductor.Conductor
 import com.bluelinelabs.conductor.Router
@@ -22,7 +22,7 @@ open class MainActivity : AppCompatActivity(), ActionBarProvider {
         AndroidInjection.inject(this)
 
         setContentView(R.layout.activity_main)
-        controllerContainer = findViewById(R.id.controller_container) as ViewGroup
+        controllerContainer = findViewById(R.id.controller_container)
 
         router = Conductor.attachRouter(this, controllerContainer, savedInstanceState)
         if (!router.hasRootController()) {

@@ -13,6 +13,7 @@ import javax.inject.Inject
 class PostDetailPresenter @Inject constructor(val useCase: GetPostDetailUseCase) : MvpNullObjectBasePresenter<PostDetailView>() {
 
     var postId: Int = 0
+    lateinit var post: Post
 
     override fun attachView(view: PostDetailView) {
         super.attachView(view)
@@ -25,9 +26,16 @@ class PostDetailPresenter @Inject constructor(val useCase: GetPostDetailUseCase)
         useCase.dispose()
     }
 
-    class PostDetailObserver constructor(view: PostDetailView) : PresentationObserver<Post, PostDetailView>(view) {
+    fun onShowMoreCommentsClicked() {
+        view.showComments(post.comments)
+        view.hideMoreCommentButton()
+    }
+
+
+   inner class PostDetailObserver constructor(view: PostDetailView) : PresentationObserver<Post, PostDetailView>(view) {
         override fun onNext(post: Post) {
-            onView { it.showDetailPost(post) }
+            this@PostDetailPresenter.post = post
+            onView { it.showDetailPost(post.copy(comments = post.comments.take(3))) }
         }
     }
 

@@ -1,6 +1,5 @@
 package cz.inventi.inventiskeleton.di;
 
-
 import android.content.SharedPreferences;
 
 import com.f2prateek.rx.preferences2.RxSharedPreferences;
@@ -10,9 +9,12 @@ import com.google.gson.Gson;
 import javax.inject.Named;
 
 import cz.inventi.inventiskeleton.BuildConfig;
+import cz.inventi.inventiskeleton.data.comment.CommentDataRepository;
+import cz.inventi.inventiskeleton.data.comment.LocalCommentStore;
 import cz.inventi.inventiskeleton.data.common.remote.RemotePlaceholderService;
 import cz.inventi.inventiskeleton.data.post.LocalPostStore;
 import cz.inventi.inventiskeleton.data.post.PostDataRepository;
+import cz.inventi.inventiskeleton.domain.comment.CommentRepository;
 import cz.inventi.inventiskeleton.domain.post.GetPostDetailUseCase;
 import cz.inventi.inventiskeleton.domain.post.GetPostListUseCase;
 import cz.inventi.inventiskeleton.domain.post.PostRepository;
@@ -71,9 +73,9 @@ public class ScreenModule {
 
     @Provides
     @ScreenScope
-    static GetPostDetailUseCase provideGetPostDetailUseCase(PostRepository postRepository){
+    static GetPostDetailUseCase provideGetPostDetailUseCase(PostRepository postRepository, CommentRepository commentRepository){
         // TODO these two should be also injected
-        return new GetPostDetailUseCase(postRepository, Schedulers::newThread, AndroidSchedulers::mainThread);
+        return new GetPostDetailUseCase(postRepository, commentRepository, Schedulers::newThread, AndroidSchedulers::mainThread);
     }
 
     @Provides
@@ -86,6 +88,18 @@ public class ScreenModule {
     @ScreenScope
     static LocalPostStore provideLocalPostStore(RxSharedPreferences rxPreferences, SharedPreferences sharedPreferences){
         return new LocalPostStore(rxPreferences, sharedPreferences, new Gson());
+    }
+
+    @Provides
+    @ScreenScope
+    static CommentRepository provideCommentRepository(RemotePlaceholderService remoteStore, LocalCommentStore localStore){
+        return new CommentDataRepository(remoteStore, localStore);
+    }
+
+    @Provides
+    @ScreenScope
+    static LocalCommentStore provideLocalCommentStore(RxSharedPreferences rxPreferences, SharedPreferences sharedPreferences){
+        return new LocalCommentStore(rxPreferences, sharedPreferences, new Gson());
     }
 
     @Provides
@@ -105,7 +119,6 @@ public class ScreenModule {
                 .build();
     }
 
-
     @Provides
     @ScreenScope
     static RemotePlaceholderService provideService(Retrofit retrofit){
@@ -121,7 +134,6 @@ public class ScreenModule {
                 .build();
     }
 
-
     @Provides
     @ScreenScope
     static HttpLoggingInterceptor provideLoggingInterceptor() {
@@ -129,6 +141,5 @@ public class ScreenModule {
         interceptor.setLevel(BuildConfig.DEBUG ? HttpLoggingInterceptor.Level.BASIC : HttpLoggingInterceptor.Level.NONE);
         return interceptor;
     }
-
 
 }
