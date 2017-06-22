@@ -6,6 +6,8 @@ import com.f2prateek.rx.preferences2.RxSharedPreferences;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.google.gson.Gson;
 
+import java.util.List;
+
 import javax.inject.Named;
 
 import cz.inventi.inventiskeleton.BuildConfig;
@@ -13,8 +15,10 @@ import cz.inventi.inventiskeleton.data.comment.CommentDataRepository;
 import cz.inventi.inventiskeleton.data.comment.LocalCommentStore;
 import cz.inventi.inventiskeleton.data.common.remote.RemotePlaceholderService;
 import cz.inventi.inventiskeleton.data.post.LocalPostStore;
+import cz.inventi.inventiskeleton.data.post.Post;
 import cz.inventi.inventiskeleton.data.post.PostDataRepository;
 import cz.inventi.inventiskeleton.domain.comment.CommentRepository;
+import cz.inventi.inventiskeleton.domain.common.BaseObservableUseCase;
 import cz.inventi.inventiskeleton.domain.post.GetPostDetailUseCase;
 import cz.inventi.inventiskeleton.domain.post.GetPostListUseCase;
 import cz.inventi.inventiskeleton.domain.post.PostRepository;
@@ -66,16 +70,22 @@ public class ScreenModule {
     // TODO not sure if this should be here
     @Provides
     @ScreenScope
-    static GetPostListUseCase provideGetPostListUseCase(PostRepository postRepository){
-        // TODO these two should be also injected
-        return new GetPostListUseCase(postRepository, Schedulers::newThread, AndroidSchedulers::mainThread);
+    static GetPostListUseCase provideGetPostListUseCase(BaseObservableUseCase<List<Post>, GetPostListUseCase.Params> baseObservableUseCase, PostRepository postRepository){
+        return new GetPostListUseCase(baseObservableUseCase, postRepository);
     }
 
     @Provides
     @ScreenScope
-    static GetPostDetailUseCase provideGetPostDetailUseCase(PostRepository postRepository, CommentRepository commentRepository){
+    static GetPostDetailUseCase provideGetPostDetailUseCase(BaseObservableUseCase<Post, GetPostDetailUseCase.Params> baseObservableUseCase, PostRepository postRepository, CommentRepository commentRepository){
         // TODO these two should be also injected
-        return new GetPostDetailUseCase(postRepository, commentRepository, Schedulers::newThread, AndroidSchedulers::mainThread);
+        return new GetPostDetailUseCase(baseObservableUseCase, postRepository, commentRepository);
+    }
+
+    @Provides
+    @ScreenScope
+    static BaseObservableUseCase provideBaseObservableUseCase(){
+        // TODO these two should be also injected
+        return new BaseObservableUseCase(Schedulers::newThread, AndroidSchedulers::mainThread);
     }
 
     @Provides
