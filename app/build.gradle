@@ -33,7 +33,6 @@ android {
     }
 
     productFlavors {
-
         dev {
             signingConfig signingConfigs.debug
             versionCode gitVersionCodeTime
@@ -41,14 +40,14 @@ android {
             applicationIdSuffix '.dev'
 
             buildConfigField "String", "BASE_API_URL", "\"https://jsonplaceholder.typicode.com/\""
+            buildConfigField "String", "API_PROFILE_PIC", "\"https://api.adorable.io/avatars/285/\""
         }
-
         prod {
             signingConfig signingConfigs.release
             versionCode gitVersionCode
             versionName gitVersionName
-
             buildConfigField "String", "BASE_API_URL", "\"https://jsonplaceholder.typicode.com/\""
+            buildConfigField "String", "API_PROFILE_PIC", "\"https://api.adorable.io/avatars/285/\""
         }
     }
 
@@ -80,6 +79,8 @@ def conductor = '2.1.2'
 def retrofit = '2.3.0'
 def okHttp = '3.8.0'
 def rxBinding = '2.0.0'
+def glide = '4.0.0'
+def circleimageview = '2.1.0'
 //def butterKnife = '8.5.1'
 
 // debug
@@ -95,7 +96,6 @@ def hamcrestVersion = '1.3'
 def runnerVersion = '0.5'
 def rulesVersion = '0.5'
 
-
 kapt {
     generateStubs = true
 }
@@ -109,6 +109,8 @@ dependencies {
     compile "com.android.support:recyclerview-v7:$supportLib"
     compile "com.android.support:design:$supportLib"
     compile "com.android.support:cardview-v7:$supportLib"
+
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
 
     // RxJava
     compile "io.reactivex.rxjava2:rxandroid:$rxJava"
@@ -155,17 +157,17 @@ dependencies {
     compile "com.jakewharton.rxbinding2:rxbinding-support-v4:$rxBinding"
     compile "com.jakewharton.rxbinding2:rxbinding-appcompat-v7:$rxBinding"
 
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
-
     debugCompile "com.squareup.leakcanary:leakcanary-android:$leakCanary"
     releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanary"
     testCompile "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanary"
 
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
 
+    // images
+    compile "com.github.bumptech.glide:glide:$glide-RC1"
+    compile "de.hdodenhof:circleimageview:$circleimageview"
 
     // testing
-
     androidTestCompile("com.android.support.test.espresso:espresso-core:$espressoVersion", {
         exclude group: 'com.android.support', module: 'support-annotations'
         exclude group: 'com.google.code.findbugs'
@@ -217,4 +219,3 @@ configurations.compile.dependencies.each { compileDependency ->
         configurations.androidTestCompile.exclude module: "${compileDependency.getName()}"
     }
 }
-

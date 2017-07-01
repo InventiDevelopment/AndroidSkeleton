@@ -1,6 +1,7 @@
 package cz.inventi.inventiskeleton.presentation.post.detail
 
 import com.hannesdorfmann.mosby3.mvp.MvpNullObjectBasePresenter
+import cz.inventi.inventiskeleton.BuildConfig.API_PROFILE_PIC
 import cz.inventi.inventiskeleton.data.post.Post
 import cz.inventi.inventiskeleton.domain.post.GetPostDetailUseCase
 import cz.inventi.inventiskeleton.presentation.common.PresentationObserver
@@ -13,7 +14,7 @@ import javax.inject.Inject
 class PostDetailPresenter @Inject constructor(val useCase: GetPostDetailUseCase) : MvpNullObjectBasePresenter<PostDetailView>() {
 
     var postId: Int = 0
-    lateinit var post: Post
+    private lateinit var post: Post
 
     override fun attachView(view: PostDetailView) {
         super.attachView(view)
@@ -29,6 +30,10 @@ class PostDetailPresenter @Inject constructor(val useCase: GetPostDetailUseCase)
     fun onShowMoreCommentsClicked() {
         view.showComments(post.comments)
         view.hideMoreCommentButton()
+    }
+
+    fun showUserProfilePicture(id: Int) {
+        view.showProfilePicture(API_PROFILE_PIC + id.toString())
     }
 
 

@@ -10,6 +10,7 @@ import cz.inventi.inventiskeleton.presentation.common.BaseView
 
 interface PostDetailView : BaseView {
     fun showDetailPost(post: Post)
+    fun showProfilePicture(url: String)
     fun showComments(comments: List<Comment>)
     fun hideMoreCommentButton()
 }

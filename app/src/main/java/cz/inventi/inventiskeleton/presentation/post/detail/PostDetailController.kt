@@ -8,12 +8,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import com.bumptech.glide.Glide
 import cz.inventi.inventiskeleton.R
 import cz.inventi.inventiskeleton.data.comment.Comment
 import cz.inventi.inventiskeleton.data.post.Post
 import cz.inventi.inventiskeleton.di.conductorlib.ConductorInjection
 import cz.inventi.inventiskeleton.presentation.common.BaseController
 import cz.inventi.inventiskeleton.presentation.common.bindView
+import cz.inventi.inventiskeleton.utils.ImageUtils
+import de.hdodenhof.circleimageview.CircleImageView
 import javax.inject.Inject
 
 /**
@@ -37,7 +40,7 @@ class PostDetailController(bundle: Bundle) : BaseController<PostDetailView, Post
 
     internal val postTitle: TextView by bindView(R.id.txt_post_title)
     internal val postBody: TextView by bindView(R.id.txt_post_body)
-    internal val postUserId: TextView by bindView(R.id.txt_post_user_id)
+    internal val userProfilePicture: CircleImageView by bindView(R.id.img_user_profile_picture)
     internal val btnShowComments: Button by bindView(R.id.btn_show_comments)
     internal val listComments: RecyclerView by bindView(R.id.list_comments)
 
@@ -64,8 +67,15 @@ class PostDetailController(bundle: Bundle) : BaseController<PostDetailView, Post
     override fun showDetailPost(post: Post) {
         postTitle.text = post.title
         postBody.text = post.body
-        postUserId.text = post.userId.toString()
+        presenter.showUserProfilePicture(post.userId)
         showComments(post.comments)
+    }
+
+    override fun showProfilePicture(url: String) {
+        Glide.with(activity)
+                .load(url)
+                .apply(ImageUtils.imageOption())
+                .into(userProfilePicture)
     }
 
     override fun showComments(comments: List<Comment>) {
