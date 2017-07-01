@@ -23,7 +23,7 @@ import javax.inject.Inject
 class PostDetailController(bundle: Bundle) : BaseController<PostDetailView, PostDetailPresenter>(bundle), PostDetailView {
 
     companion object {
-        private val TAG = PostDetailController::class.java.name
+        val TAG: String = PostDetailController::class.java.name
 
         fun instance(id: Int) : PostDetailController {
             val args = Bundle()

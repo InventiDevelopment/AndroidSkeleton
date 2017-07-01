@@ -62,7 +62,8 @@ class PostListController : BaseController<PostListView, PostListPresenter>(), Po
     }
 
     override fun showDetailPost(id: Int) {
-        router.pushController(RouterTransaction.with(PostDetailController.instance(id)))
+        router.pushController(RouterTransaction
+                .with(PostDetailController.instance(id)).tag(PostDetailController.TAG))
     }
 
     override fun showAddPost() {
