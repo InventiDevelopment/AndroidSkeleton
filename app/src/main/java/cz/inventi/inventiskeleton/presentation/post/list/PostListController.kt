@@ -24,7 +24,7 @@ import javax.inject.Inject
 
 class PostListController : BaseController<PostListView, PostListPresenter>(), PostListView {
 
-    internal val reloadBtn: Button by bindView(R.id.reload_btn)
+    internal val reloadBtn: Button by bindView(R.id.btn_reload)
     internal val listView: RecyclerView by bindView(R.id.list_view)
     internal val addPost: View by bindView(R.id.add_post)
 

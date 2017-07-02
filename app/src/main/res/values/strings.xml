@@ -2,4 +2,6 @@
     <string name="app_name">InventiSkeleton</string>
     <string name="show_more_comments">Show more comments</string>
     <string name="profile_pic_description">Show picture</string>
+    <string name="reload">Reload</string>
+    <string name="done">Done</string>
 </resources>

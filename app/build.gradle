@@ -70,7 +70,7 @@ android {
         sourceCompatibility 1.8
     }
 }
-
+//def supportLib = '25.4.0'
 def supportLib = '26.0.0-beta2'
 def dagger = '2.11-rc2'
 def mosby = '3.0.0'
@@ -81,6 +81,7 @@ def okHttp = '3.8.0'
 def rxBinding = '2.0.0'
 def glide = '4.0.0'
 def circleimageview = '2.1.0'
+def materialDesignDimens = '1.4'
 //def butterKnife = '8.5.1'
 
 // debug
@@ -166,6 +167,8 @@ dependencies {
     // images
     compile "com.github.bumptech.glide:glide:$glide-RC1"
     compile "de.hdodenhof:circleimageview:$circleimageview"
+
+    compile "com.dmitrymalkovich.android:material-design-dimens:$materialDesignDimens"
 
     // testing
     androidTestCompile("com.android.support.test.espresso:espresso-core:$espressoVersion", {

@@ -27,6 +27,8 @@
     <Button
         android:id="@+id/done_btn"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Done" />
+        android:layout_height="@dimen/material_component_button_height"
+        style="@style/Button"
+        android:text="@string/done" />
+
 </LinearLayout>
