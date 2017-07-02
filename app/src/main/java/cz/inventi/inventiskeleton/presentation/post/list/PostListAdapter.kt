@@ -5,18 +5,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import cz.inventi.inventiskeleton.BuildConfig.API_PROFILE_PIC
 import cz.inventi.inventiskeleton.R
 import cz.inventi.inventiskeleton.data.post.Post
 import cz.inventi.inventiskeleton.presentation.common.ViewBinder
 import cz.inventi.inventiskeleton.presentation.common.bindView
-
+import cz.inventi.inventiskeleton.utils.ImageUtils
+import de.hdodenhof.circleimageview.CircleImageView
 
 /**
  * Created by tomas.valenta on 5/16/2017.
  */
 
-
-class PostListAdapter : RecyclerView.Adapter<PostListAdapter.PostViewHolder>() {
+class PostListAdapter: RecyclerView.Adapter<PostListAdapter.PostViewHolder>() {
 
     val postList = mutableListOf<Post>()
     var onPostSelectedListener: ((Post) -> Unit) = {}
@@ -34,7 +35,6 @@ class PostListAdapter : RecyclerView.Adapter<PostListAdapter.PostViewHolder>() {
         val post = postList[position]
         holder.bind(post)
         holder.itemView.setOnClickListener { onPostSelectedListener(post) }
-
     }
 
     override fun getItemCount(): Int {
@@ -50,6 +50,7 @@ class PostListAdapter : RecyclerView.Adapter<PostListAdapter.PostViewHolder>() {
     class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         internal val titleText: TextView by bindView(R.id.title)
+        internal val imageView: CircleImageView by bindView(R.id.img_user_avatar)
 
         init {
             ViewBinder.setup(this, itemView)
@@ -57,8 +58,10 @@ class PostListAdapter : RecyclerView.Adapter<PostListAdapter.PostViewHolder>() {
 
         fun bind(post: Post) {
             titleText.text = post.title
+            ImageUtils.downloadImageIntoImageView(imageView.context,
+                    API_PROFILE_PIC +  post.userId.toString(),
+                    imageView)
         }
     }
+
 }
-
-

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <dimen name="grid_0.5">4dp</dimen>
     <dimen name="grid_1">8dp</dimen>
     <dimen name="grid_1.5">12dp</dimen>
@@ -13,4 +12,8 @@
     <dimen name="grid_8">64dp</dimen>
     <dimen name="grid_9">72dp</dimen>
     <dimen name="grid_10">80dp</dimen>
+
+    <dimen name="horizontal_margin">16dp</dimen>
+    <dimen name="avatar_size">40dp</dimen>
+
 </resources>
