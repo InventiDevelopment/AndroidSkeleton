@@ -59,9 +59,7 @@ class PostDetailController(bundle: Bundle) : BaseController<PostDetailView, Post
         listComments.adapter = commentListAdapter
     }
 
-    override fun createPresenter(): PostDetailPresenter {
-        return postDetailPresenter
-    }
+    override fun createPresenter() = postDetailPresenter
 
     override fun showDetailPost(post: Post) {
         postTitle.text = post.title
@@ -75,7 +73,7 @@ class PostDetailController(bundle: Bundle) : BaseController<PostDetailView, Post
     }
 
     override fun showComments(comments: List<Comment>) {
-       commentListAdapter.updateData(comments)
+        commentListAdapter.commentList = comments as MutableList<Comment>
     }
 
     override fun hideMoreCommentButton() {

@@ -11,4 +11,5 @@ interface PostListView : BaseView {
     fun showPostList(posts: List<Post>)
     fun showAddPost()
     fun showDetailPost(id : Int)
+    fun deletePost(post: Post)
 }

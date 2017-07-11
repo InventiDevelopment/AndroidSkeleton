@@ -9,14 +9,19 @@ import cz.inventi.inventiskeleton.R
 import cz.inventi.inventiskeleton.data.comment.Comment
 import cz.inventi.inventiskeleton.presentation.common.ViewBinder
 import cz.inventi.inventiskeleton.presentation.common.bindView
+import cz.inventi.inventiskeleton.utils.AutoUpdatableAdapter
+import kotlin.properties.Delegates
 
 /**
  * Created by ecnill on 15-Jun-17.
  */
 
-class CommentListAdapter : RecyclerView.Adapter<CommentListAdapter.CommentViewHolder>() {
+class CommentListAdapter : RecyclerView.Adapter<CommentListAdapter.CommentViewHolder>(), AutoUpdatableAdapter {
 
-    val commentList = mutableListOf<Comment>()
+    var commentList: MutableList<Comment> by Delegates.observable(mutableListOf()) {
+        _, old, new ->
+        autoNotify(old, new) { o, n -> o.id == n.id }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommentViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_comment, parent, false)
@@ -24,19 +29,11 @@ class CommentListAdapter : RecyclerView.Adapter<CommentListAdapter.CommentViewHo
     }
 
     override fun onBindViewHolder(holder: CommentViewHolder, position: Int) {
-        val comment = commentList[position]
-        holder.bind(comment)
+        holder.bind(commentList[position])
     }
 
-    override fun getItemCount(): Int {
-        return commentList.size
-    }
+    override fun getItemCount() = commentList.size
 
-    fun updateData(comments: List<Comment>) {
-        commentList.clear()
-        commentList.addAll(comments)
-        notifyDataSetChanged()
-    }
 
     class CommentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         internal val txtCommentName: TextView by bindView(R.id.txt_comment_name)

@@ -17,20 +17,18 @@ import cz.inventi.inventiskeleton.presentation.post.add.PostAddController
 import cz.inventi.inventiskeleton.presentation.post.detail.PostDetailController
 import javax.inject.Inject
 
-
 /**
  * Created by semanticer on 05.05.2017.
  */
 
 class PostListController : BaseController<PostListView, PostListPresenter>(), PostListView {
 
+    @Inject lateinit var postListPresenter: PostListPresenter
+    val postListAdapter = PostListAdapter()
+
     internal val reloadBtn: Button by bindView(R.id.btn_reload)
     internal val listView: RecyclerView by bindView(R.id.list_view)
     internal val addPost: View by bindView(R.id.add_post)
-
-    @Inject lateinit var postListPresenter: PostListPresenter
-
-    val postListAdapter = PostListAdapter()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View {
         ConductorInjection.inject(this)
@@ -44,6 +42,7 @@ class PostListController : BaseController<PostListView, PostListPresenter>(), Po
         listView.layoutManager = LinearLayoutManager(activity)
         listView.adapter = postListAdapter
         postListAdapter.onPostSelectedListener = {post ->  presenter.onPostSelected(post)}
+        postListAdapter.onPostLongSelectedListener = {post -> presenter.onPostLongClicked(post)}
 
         // refactor someday
         RxView.clicks(addPost).subscribe({presenter.onAddPost()})
@@ -53,12 +52,10 @@ class PostListController : BaseController<PostListView, PostListPresenter>(), Po
         return inflater.inflate(R.layout.controller_post_list, container, false)
     }
 
-    override fun createPresenter(): PostListPresenter {
-        return postListPresenter
-    }
+    override fun createPresenter() = postListPresenter
 
     override fun showPostList(posts: List<Post>) {
-        postListAdapter.updateData(posts)
+        postListAdapter.postList = posts as MutableList<Post>
     }
 
     override fun showDetailPost(id: Int) {
@@ -68,6 +65,15 @@ class PostListController : BaseController<PostListView, PostListPresenter>(), Po
 
     override fun showAddPost() {
         router.pushController(RouterTransaction.with(PostAddController()))
+    }
+
+    override fun deletePost(post: Post) {
+        // dummy demonstration of AutoUpdatableAdapter released by DiffUtil
+        val copy: MutableList<Post> = mutableListOf()
+        copy.addAll(postListAdapter.postList)
+        copy.filter { it == post }.forEach { copy.remove(it) }
+
+        postListAdapter.postList = copy
     }
 
 }

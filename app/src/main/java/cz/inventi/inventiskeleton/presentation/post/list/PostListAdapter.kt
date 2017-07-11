@@ -10,21 +10,29 @@ import cz.inventi.inventiskeleton.R
 import cz.inventi.inventiskeleton.data.post.Post
 import cz.inventi.inventiskeleton.presentation.common.ViewBinder
 import cz.inventi.inventiskeleton.presentation.common.bindView
+import cz.inventi.inventiskeleton.utils.AutoUpdatableAdapter
 import cz.inventi.inventiskeleton.utils.ImageUtils
 import de.hdodenhof.circleimageview.CircleImageView
+import kotlin.properties.Delegates
 
 /**
  * Created by tomas.valenta on 5/16/2017.
  */
 
-class PostListAdapter: RecyclerView.Adapter<PostListAdapter.PostViewHolder>() {
+class PostListAdapter : RecyclerView.Adapter<PostListAdapter.PostViewHolder>(), AutoUpdatableAdapter {
 
-    val postList = mutableListOf<Post>()
+    var postList: MutableList<Post> by Delegates.observable(mutableListOf()) {
+        _, old, new ->
+        autoNotify(old, new) { o, n -> o.id == n.id }
+    }
+
     var onPostSelectedListener: ((Post) -> Unit) = {}
         get
         set(value) {
-             field = value
+            field = value
         }
+
+    var onPostLongSelectedListener: ((Post) -> Boolean) = {false}
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_post, parent, false)
@@ -35,17 +43,11 @@ class PostListAdapter: RecyclerView.Adapter<PostListAdapter.PostViewHolder>() {
         val post = postList[position]
         holder.bind(post)
         holder.itemView.setOnClickListener { onPostSelectedListener(post) }
+        holder.itemView.setOnLongClickListener {onPostLongSelectedListener(post) }
     }
 
-    override fun getItemCount(): Int {
-        return postList.size
-    }
+    override fun getItemCount() = postList.size
 
-    fun updateData(posts: List<Post>) {
-        postList.clear()
-        postList.addAll(posts)
-        notifyDataSetChanged()
-    }
 
     class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -59,7 +61,7 @@ class PostListAdapter: RecyclerView.Adapter<PostListAdapter.PostViewHolder>() {
         fun bind(post: Post) {
             titleText.text = post.title
             ImageUtils.downloadImageIntoImageView(imageView.context,
-                    API_PROFILE_PIC +  post.userId.toString(),
+                    API_PROFILE_PIC + post.userId.toString(),
                     imageView)
         }
     }

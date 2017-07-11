@@ -21,12 +21,6 @@ class PostListPresenter @Inject constructor(private val useCase: GetPostListUseC
         useCase.dispose()
     }
 
-    class PostListObserver constructor(view: PostListView): PresentationObserver<List<Post>, PostListView>(view) {
-        override fun onNext(list: List<Post>) {
-            onView { it.showPostList(list) }
-        }
-    }
-
     fun reloadList() {
         useCase.execute(PostListObserver(view), GetPostListUseCase.Params(limit = 20))
     }
@@ -35,7 +29,19 @@ class PostListPresenter @Inject constructor(private val useCase: GetPostListUseC
         view.showDetailPost(post.id)
     }
 
+    fun onPostLongClicked(post: Post) : Boolean {
+        view.deletePost(post)
+        return false
+    }
+
     fun onAddPost() {
         view.showAddPost()
     }
+
+    class PostListObserver constructor(view: PostListView): PresentationObserver<List<Post>, PostListView>(view) {
+        override fun onNext(list: List<Post>) {
+            onView { it.showPostList(list) }
+        }
+    }
+
 }
