@@ -1,7 +1,6 @@
 package cz.inventi.inventiskeleton.presentation
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.view.ViewGroup
 import com.bluelinelabs.conductor.Conductor
 import com.bluelinelabs.conductor.Router
@@ -9,20 +8,17 @@ import com.bluelinelabs.conductor.RouterTransaction
 import cz.inventi.inventiskeleton.R
 import cz.inventi.inventiskeleton.presentation.common.ActionBarProvider
 import cz.inventi.inventiskeleton.presentation.post.list.PostListController
-import dagger.android.AndroidInjection
+import dagger.android.support.DaggerAppCompatActivity
 
-open class MainActivity : AppCompatActivity(), ActionBarProvider {
+open class MainActivity : DaggerAppCompatActivity(), ActionBarProvider {
 
     private lateinit var router: Router
 
-    private lateinit var controllerContainer: ViewGroup
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        AndroidInjection.inject(this)
 
         setContentView(R.layout.activity_main)
-        controllerContainer = findViewById(R.id.controller_container)
+        val controllerContainer = findViewById<ViewGroup>(R.id.controller_container)
 
         router = Conductor.attachRouter(this, controllerContainer, savedInstanceState)
         if (!router.hasRootController()) {
