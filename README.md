@@ -75,6 +75,12 @@ TODO List
 - [ ] Write unit and UI tests
 - [ ] Firebase branch
 
+Reactive types
+-----
+**Observable*/Flowable* - onSubscribe onNext(T value)* (onComplete() | onError(Throwable e))?
+**Single** - onSubscribe (onSuccess(T value) | onError(Throwable e)?
+**Completable** - onSubscribe (onComplete() | onError(Throwable e))?
+**Maybe** - onSubscribe (onSuccess(T value) | onError(Throwable e) | onComplete())?
 
 
 License

@@ -4,6 +4,7 @@ import android.content.SharedPreferences
 import com.f2prateek.rx.preferences2.RxSharedPreferences
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import io.reactivex.Maybe
 import io.reactivex.Observable
 import javax.inject.Inject
 
@@ -15,8 +16,8 @@ class LocalCommentStore @Inject constructor(val rxSharedPref: RxSharedPreference
 
     val COMMENTS_PREF = "comments"
 
-    fun comment(commentId: Int): Observable<Comment> {
-        return commentList().map { it.firstOrNull { it.id == commentId } }
+    fun comment(commentId: Int): Maybe<Comment> {
+        return commentList().flatMapIterable { it }.filter { it.id == commentId }.firstElement()
     }
 
     fun commentList(): Observable<List<Comment>> {

@@ -2,6 +2,7 @@ package cz.inventi.inventiskeleton.data.post
 
 import cz.inventi.inventiskeleton.data.common.remote.RemotePlaceholderService
 import cz.inventi.inventiskeleton.domain.post.PostRepository
+import io.reactivex.Maybe
 import io.reactivex.Observable
 import javax.inject.Inject
 
@@ -16,7 +17,7 @@ class PostDataRepository @Inject constructor(val remoteStore: RemotePlaceholderS
     override fun post(postId: Int): Observable<Post> {
         val remotePost = remoteStore.post(postId) // TODO update individual post in db
         val localPost = localStore.post(postId)
-        return Observable.merge(remotePost, localPost) // TODO error handling an fix multiple return
+        return Maybe.merge(remotePost, localPost).toObservable() // TODO error handling an fix multiple return
     }
 
     override fun postList(): Observable<List<Post>> {
