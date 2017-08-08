@@ -71,7 +71,7 @@ android {
     }
 }
 //def supportLib = '25.4.0'
-def supportLib = '26.0.0-beta2'
+def supportLib = '26.0.0'
 def dagger = '2.11'
 def mosby = '3.0.0'
 def rxJava = '2.0.1'
