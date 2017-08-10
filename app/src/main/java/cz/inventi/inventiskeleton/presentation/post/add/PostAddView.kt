@@ -9,5 +9,6 @@ import io.reactivex.Observable
 interface PostAddView : BaseView {
     fun titleEditEvents(): Observable<String>
     fun bodyEditEvents(): Observable<String>
-    fun render(viewState: String)
+    fun doneClickEvents(): Observable<Any>
+    fun render(viewState: PostAddViewState)
 }

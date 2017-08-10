@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ProgressBar
 import com.jakewharton.rxbinding2.view.RxView
 import com.jakewharton.rxbinding2.widget.RxTextView
 import cz.inventi.inventiskeleton.R
@@ -27,6 +28,8 @@ class PostAddController  : BaseMviController<PostAddView, PostAddPresenter>(), P
     internal val titleEdit: EditText by bindView(R.id.post_title_edit)
     internal val bodyEdit: EditText by bindView(R.id.post_body_edit)
     internal val doneBtn: Button by bindView(R.id.done_btn)
+    internal val loadingBar: ProgressBar by bindView(R.id.loading_bar)
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View {
         ConductorInjection.inject(this)
@@ -34,7 +37,6 @@ class PostAddController  : BaseMviController<PostAddView, PostAddPresenter>(), P
     }
 
     override fun onViewBind(view: View) {
-        RxView.clicks(doneBtn).subscribe({ _ -> postAddPresenter.onDoneClicked() })
     }
 
     override fun inflateView(inflater: LayoutInflater, container: ViewGroup): View {
@@ -49,11 +51,35 @@ class PostAddController  : BaseMviController<PostAddView, PostAddPresenter>(), P
 
     override fun bodyEditEvents(): Observable<String> = observeEditTextChanges(bodyEdit)
 
+    override fun doneClickEvents() = RxView.clicks(doneBtn)
+
     private fun observeEditTextChanges(editText: EditText): Observable<String> {
         return RxTextView.textChanges(editText).skipInitialValue().map { e -> e.toString() }
     }
 
-    override fun render(viewState: String) =  bodyEdit.setText(viewState)
+    override fun render(viewState: PostAddViewState) {
+        if (titleEdit.text.toString() != viewState.title){
+            titleEdit.setText(viewState.title)
+        }
+        if (bodyEdit.text.toString() != viewState.body) {
+            bodyEdit.setText(viewState.body)
+        }
+        if (viewState.titleError.isNotEmpty()) {
+            titleEdit.error = viewState.titleError
+        }
+        if (viewState.bodyError.isNotEmpty()) {
+            bodyEdit.error = viewState.bodyError
+        }
+        if (viewState.isLoading){
+            loadingBar.visibility = View.VISIBLE
+            titleEdit.isEnabled = false
+            bodyEdit.isEnabled = false
+        } else {
+            loadingBar.visibility = View.GONE
+            titleEdit.isEnabled = true
+            bodyEdit.isEnabled = true
+        }
+    }
 
 }
 

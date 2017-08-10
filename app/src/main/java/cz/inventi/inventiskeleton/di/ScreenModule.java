@@ -53,8 +53,8 @@ public class ScreenModule {
 
     @Provides
     @ScreenScope
-    static PostAddPresenter providePostAddPresenter(){
-        return new PostAddPresenter();
+    static PostAddPresenter providePostAddPresenter(RemotePlaceholderService remoteStore){
+        return new PostAddPresenter(remoteStore);
     }
 
     @Provides

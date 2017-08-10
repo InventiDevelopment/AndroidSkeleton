@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -29,6 +30,17 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/material_component_button_height"
         style="@style/Button"
+        android:layout_margin="@dimen/grid_1"
         android:text="@string/done" />
+
+    <ProgressBar
+        android:id="@+id/loading_bar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/grid_2"
+        android:visibility="gone"
+        tools:visibility="visible"/>
+
 
 </LinearLayout>
