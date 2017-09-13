@@ -24,7 +24,7 @@ class GetPostDetailUseCase @Inject constructor(val repositoryList: PostRepositor
     override fun buildUseCaseObservable(params: Params): Observable<Post> {
         val post = repositoryList.post(params.postId)
         val comments = repositoryComment.commentList(params.postId)
-        return Observable.combineLatest(post, comments, BiFunction { post, comments -> post.copy(comments = comments) })
+        return Observable.combineLatest(post, comments, BiFunction { post, comments -> post }) //TODO post.copy(comments = comments)
     }
 
 }

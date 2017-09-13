@@ -96,6 +96,7 @@ def espressoVersion = '2.2.2'
 def hamcrestVersion = '1.3'
 def runnerVersion = '0.5'
 def rulesVersion = '0.5'
+def archVersion = '1.0.0-alpha9'
 
 kapt {
     generateStubs = true
@@ -112,6 +113,14 @@ dependencies {
     compile "com.android.support:cardview-v7:$supportLib"
 
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
+
+    // Arch
+    compile "android.arch.persistence.room:runtime:$archVersion"
+    compile "android.arch.persistence.room:rxjava2:$archVersion"
+    kapt "android.arch.persistence.room:compiler:$archVersion"
+//    compile "android.arch.lifecycle:runtime:$archVersion"
+//    compile "android.arch.lifecycle:extensions:$archVersion"
+//    kapt "android.arch.lifecycle:compiler:$archVersion"
 
     // RxJava
     compile "io.reactivex.rxjava2:rxandroid:$rxJava"

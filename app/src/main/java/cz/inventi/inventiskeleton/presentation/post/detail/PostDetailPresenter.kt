@@ -28,7 +28,7 @@ class PostDetailPresenter @Inject constructor(val useCase: GetPostDetailUseCase)
     }
 
     fun onShowMoreCommentsClicked() {
-        view.showComments(post.comments)
+//        view.showComments(post.comments) // TODO
         view.hideMoreCommentButton()
     }
 
@@ -40,7 +40,7 @@ class PostDetailPresenter @Inject constructor(val useCase: GetPostDetailUseCase)
    inner class PostDetailObserver constructor(view: PostDetailView) : PresentationObserver<Post, PostDetailView>(view) {
         override fun onNext(post: Post) {
             this@PostDetailPresenter.post = post
-            onView { it.showDetailPost(post.copy(comments = post.comments.take(3))) }
+//            onView { it.showDetailPost(post.copy(comments = post.comments.take(3))) } //TODO
         }
     }
 

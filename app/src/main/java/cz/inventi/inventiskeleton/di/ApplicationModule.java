@@ -1,10 +1,12 @@
 package cz.inventi.inventiskeleton.di;
 
 import android.app.Application;
+import android.arch.persistence.room.Room;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import cz.inventi.inventiskeleton.App;
+import cz.inventi.inventiskeleton.data.db.AppDatabase;
 import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
@@ -21,5 +23,10 @@ abstract class ApplicationModule {
     @Provides
     static SharedPreferences preferences(Application application) {
         return PreferenceManager.getDefaultSharedPreferences(application);
+    }
+
+    @Provides
+    static AppDatabase db(Application application) {
+        return Room.databaseBuilder(application.getApplicationContext(), AppDatabase.class, "post-database").build();
     }
 }

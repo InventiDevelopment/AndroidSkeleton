@@ -12,6 +12,8 @@ import cz.inventi.inventiskeleton.BuildConfig;
 import cz.inventi.inventiskeleton.data.comment.CommentDataRepository;
 import cz.inventi.inventiskeleton.data.comment.LocalCommentStore;
 import cz.inventi.inventiskeleton.data.common.remote.RemotePlaceholderService;
+import cz.inventi.inventiskeleton.data.db.AppDatabase;
+import cz.inventi.inventiskeleton.data.db.dao.PostDao;
 import cz.inventi.inventiskeleton.data.post.LocalPostStore;
 import cz.inventi.inventiskeleton.data.post.PostDataRepository;
 import cz.inventi.inventiskeleton.domain.comment.CommentRepository;
@@ -80,7 +82,7 @@ public class ScreenModule {
 
     @Provides
     @ScreenScope
-    static PostRepository providePostRepository(RemotePlaceholderService remoteStore, LocalPostStore localStore){
+    static PostRepository providePostRepository(RemotePlaceholderService remoteStore, PostDao localStore){
         return new PostDataRepository(remoteStore, localStore);
     }
 
@@ -88,6 +90,12 @@ public class ScreenModule {
     @ScreenScope
     static LocalPostStore provideLocalPostStore(RxSharedPreferences rxPreferences, SharedPreferences sharedPreferences){
         return new LocalPostStore(rxPreferences, sharedPreferences, new Gson());
+    }
+
+    @Provides
+    @ScreenScope
+    static PostDao providePostDao(AppDatabase db){
+        return db.postDao();
     }
 
     @Provides

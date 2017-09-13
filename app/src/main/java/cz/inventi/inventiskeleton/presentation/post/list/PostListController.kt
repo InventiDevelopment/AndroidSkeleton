@@ -55,7 +55,7 @@ class PostListController : BaseController<PostListView, PostListPresenter>(), Po
     override fun createPresenter() = postListPresenter
 
     override fun showPostList(posts: List<Post>) {
-        postListAdapter.postList = posts as MutableList<Post>
+        postListAdapter.postList = mutableListOf() //TODO
     }
 
     override fun showDetailPost(id: Int) {

@@ -65,7 +65,7 @@ class PostDetailController(bundle: Bundle) : BaseController<PostDetailView, Post
         postTitle.text = post.title
         postBody.text = post.body
         presenter.showUserProfilePicture(post.userId)
-        showComments(post.comments)
+//        showComments(post.comments) //TODO
     }
 
     override fun showProfilePicture(url: String) {
