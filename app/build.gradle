@@ -33,7 +33,11 @@ android {
     }
 
     productFlavors {
+
+        flavorDimensions "environment"
+
         dev {
+            dimension "environment"
             signingConfig signingConfigs.debug
             versionCode gitVersionCodeTime
             versionName gitVersionName
@@ -43,6 +47,7 @@ android {
             buildConfigField "String", "API_PROFILE_PIC", "\"https://api.adorable.io/avatars/285/\""
         }
         prod {
+            dimension "environment"
             signingConfig signingConfigs.release
             versionCode gitVersionCode
             versionName gitVersionName
